@@ -22,7 +22,7 @@
 
 ##### Roadmap
 
-- [x] react app configuration
+- [x] React app configuration
 - [x] Tailwind configuration
 - [x] Testing with Vitest/ TDD setup
-- [ ] Shadcn/ui setup
+- [x] UI configuration - clsx, twMerge, cva, lucide icons
