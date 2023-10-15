@@ -26,3 +26,12 @@
 - [x] Tailwind configuration
 - [x] Testing with Vitest/ TDD setup
 - [x] UI configuration - clsx, twMerge, cva, lucide icons
+- [x] Deployment to Vercel 
+- [ ] Ship interface - implemented by the PatrolBoat, SubMarine, Destroyer, BattleShip and Carrier classes
+- [ ] Implement individual ship classes 
+- [ ] GameBoard class - for player and opponent's boards
+- [ ] Player class
+- [ ] Main game loop
+- [ ] Drag and drop for ships during game setup
+- [ ] Smarter computer player 
+- [ ] Enable two players / online gameplay
