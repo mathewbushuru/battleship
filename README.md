@@ -23,5 +23,6 @@
 ##### Roadmap
 
 - [x] react app configuration
-- [ ] Tailwind configuration
-- [ ] Testing with Vitest/ TDD setup
+- [x] Tailwind configuration
+- [x] Testing with Vitest/ TDD setup
+- [ ] Shadcn/ui setup
