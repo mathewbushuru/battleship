@@ -10,5 +10,8 @@ describe("App component", () => {
     expect(screen.getByText("Nautical Nemesis")).toBeVisible();
     expect(screen.getByTestId("App")).not.toBeEmptyDOMElement();
     expect(result.getByTestId("App")).toHaveTextContent("Nautical Nemesis");
+
+    // const { getByTestId } = render(App());
+    // expect(getByTestId("App")).toBeInTheDocument();
   });
 });
