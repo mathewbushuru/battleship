@@ -1,4 +1,4 @@
-import { it, test, expect, assert, vi } from "vitest";
+import {test, expect, assert, vi } from "vitest";
 
 test("Math.sqrt()", () => {
   expect(Math.sqrt(4)).toBe(2);
@@ -18,12 +18,7 @@ test("JSON", () => {
   assert.deepEqual(JSON.parse(output), input, "matches original");
 });
 
-it("adds 1 + 2 to equal 3", () => {
-  expect(1 + 2).toBe(3);
-});
-
 const mockFn = vi.fn();
-
 mockFn("hello", 1);
 expect(vi.isMockFunction(mockFn)).toBe(true);
 expect(mockFn.mock.calls[0]).toEqual(["hello", 1]);

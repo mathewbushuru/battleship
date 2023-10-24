@@ -1,6 +1,6 @@
-<h2 align="center"> Nautical Nemesis </h1>
+<h2 align="center"> Battleship </h1>
 
-The main purpose of this project is to explore testing in React while creating a Battleship game. I'm using `Vitest` as the unit testing framework, `JSDOM` as the running environment for our tests, and a combination of `@testing-library/react` and `@testing-library/jest-dom` for react testing utilities.
+The main purpose of this project is to explore testing in React while creating a Battleship game. I'm using `Vitest` as the unit testing framework, `JSDOM` as the running environment for the tests, and a combination of `@testing-library/react` and `@testing-library/jest-dom` for react testing utilities.
 
 <!-- ![progress](./docs/current-progress1.jpg) -->
 
@@ -11,7 +11,7 @@ The main purpose of this project is to explore testing in React while creating a
 
 ##### Tech Stack 
 
-`Frontend`: React + Vite, TypeScript, TailwindCSS, Redux, Vitest
+`React` + `Vite`, `TypeScript`, `TailwindCSS`, `Redux`, `Vitest`
 
 ##### Deployment
  
