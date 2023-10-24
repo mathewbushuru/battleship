@@ -1,7 +1,7 @@
-function header() {
+function Header() {
   return (
-    <div>header</div>
+    <div>Battleship</div>
   )
 }
 
-export default header
+export default Header

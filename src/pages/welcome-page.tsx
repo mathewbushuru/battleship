@@ -1,8 +1,11 @@
+import Header from "@/components/header";
 
 function WelcomePage() {
   return (
-    <div>welcome-page</div>
-  )
+    <div data-testid="WelcomePage">
+      <Header />
+    </div>
+  );
 }
 
-export default WelcomePage
+export default WelcomePage;

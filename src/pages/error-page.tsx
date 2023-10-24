@@ -8,8 +8,6 @@ function ErrorPage() {
   const error = useRouteError();
   const navigate = useNavigate();
 
-  console.error(error);
-
   let content: React.ReactNode;
 
   if (isRouteErrorResponse(error)) {
