@@ -1,7 +1,20 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import WelcomePage from "@/pages/welcome-page";
+import ErrorPage from "@/pages/error-page";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <WelcomePage />,
+    errorElement: <ErrorPage />,
+  },
+]);
+
 function App() {
   return (
-    <div data-testid="App" className="text-3xl md:text-sm">
-      Nautical Nemesis
+    <div data-testid="App" className="">
+      <RouterProvider router={router} />
     </div>
   );
 }
