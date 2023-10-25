@@ -15,6 +15,7 @@ const SelectTrigger = React.forwardRef<
   return (
     <SelectPrimitive.Trigger
       ref={ref}
+      data-testid="trigger"
       className={cn(
         "bg-background ring-offset-background flex h-10 w-full items-center justify-between rounded-md border border-stone-800 px-3 py-2 focus:outline-none",
         className,
@@ -34,7 +35,7 @@ const SelectContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = "popper", ...props }, ref) => {
   return (
-    <SelectPrimitive.Portal>
+    <SelectPrimitive.Portal data-testid="portal">
       <SelectPrimitive.Content
         ref={ref}
         className={cn(
