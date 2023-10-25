@@ -6,7 +6,7 @@ The main purpose of this project is to explore testing in React while creating a
 
 ##### Test Coverage
 
-![test-coverage](./docs/coverage.jpg)
+![test-coverage](./docs/coverage1.jpg)
 
 ##### Tech Stack 
 

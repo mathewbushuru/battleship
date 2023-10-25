@@ -4,6 +4,8 @@ import {
   isRouteErrorResponse,
 } from "react-router-dom";
 
+import Button from "@/components/ui/button";
+
 function ErrorPage() {
   const error = useRouteError();
   const navigate = useNavigate();
@@ -22,8 +24,8 @@ function ErrorPage() {
       <h1>Oops!</h1>
       <pre className="text-sm">{content}</pre>
       <div className="flex gap-4">
-        <button onClick={() => navigate(-1)}>Go back</button>
-        <button onClick={() => navigate("/")}>Go home</button>
+        <Button onClick={() => navigate(-1)}>Go back</Button>
+        <Button onClick={() => navigate("/")}>Go home</Button>
       </div>
     </div>
   );
