@@ -13,7 +13,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div data-testid="App">
+    <div data-testid="App" className="bg-background h-screen">
       <RouterProvider router={router} />
     </div>
   );
