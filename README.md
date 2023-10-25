@@ -4,18 +4,13 @@ The main purpose of this project is to explore testing in React while creating a
 
 <!-- ![progress](./docs/current-progress1.jpg) -->
 
-##### How it works
+##### Test Coverage
 
-...
-
+![test-coverage](./docs/coverage.jpg)
 
 ##### Tech Stack 
 
-`React` + `Vite`, `TypeScript`, `TailwindCSS`, `Redux`, `Vitest`
-
-##### Deployment
- 
-[nautical-nemesis.vercel.app](https://nautical-nemesis.vercel.app/)
+`React` + `Vite`, `TypeScript`, `TailwindCSS`, `Redux`, `Vitest`, `React-testing-library`
 
 ##### Roadmap
 

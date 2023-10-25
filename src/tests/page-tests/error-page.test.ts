@@ -31,6 +31,16 @@ describe("route error page", async () => {
     expect(result.getByText("Not Found")).toBeInTheDocument();
   });
 
+  it("displays router error response when statusText is missing", () => {
+    rrd.useRouteError = vi.fn().mockReturnValue({ status: 404 });
+    rrd.isRouteErrorResponse = vi
+      .fn()
+      .mockReturnValue(true) as unknown as typeof rrd.isRouteErrorResponse; 
+
+    const result = render(ErrorPage());
+    expect(result.getByText(404)).toBeInTheDocument();
+  });
+
   it("displays standard error response", () => {
     const standardError = new Error("Standard error occurred");
     rrd.useRouteError = vi.fn().mockReturnValue(standardError);
@@ -66,5 +76,5 @@ describe("route error page", async () => {
     const result = render(ErrorPage());
     fireEvent.click(result.getByText("Go home"));
     expect(navigateHookMock).toHaveBeenCalledWith("/");
-  })
+  });
 });
