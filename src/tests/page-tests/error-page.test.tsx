@@ -27,7 +27,7 @@ describe("route error page", async () => {
       .fn()
       .mockReturnValue(true) as unknown as typeof rrd.isRouteErrorResponse;
 
-    const result = render(ErrorPage());
+    const result = render(<ErrorPage />);
     expect(result.getByText("Not Found")).toBeInTheDocument();
   });
 
@@ -35,9 +35,9 @@ describe("route error page", async () => {
     rrd.useRouteError = vi.fn().mockReturnValue({ status: 404 });
     rrd.isRouteErrorResponse = vi
       .fn()
-      .mockReturnValue(true) as unknown as typeof rrd.isRouteErrorResponse; 
+      .mockReturnValue(true) as unknown as typeof rrd.isRouteErrorResponse;
 
-    const result = render(ErrorPage());
+    const result = render(<ErrorPage />);
     expect(result.getByText(404)).toBeInTheDocument();
   });
 
@@ -45,14 +45,14 @@ describe("route error page", async () => {
     const standardError = new Error("Standard error occurred");
     rrd.useRouteError = vi.fn().mockReturnValue(standardError);
 
-    const result = render(ErrorPage());
+    const result = render(<ErrorPage />);
     expect(result.getByText("Standard error occurred")).toBeInTheDocument();
   });
 
   it("displays an unexpected error", () => {
     rrd.useRouteError = vi.fn().mockReturnValue("Unexpected error type");
 
-    const result = render(ErrorPage());
+    const result = render(<ErrorPage />);
     expect(
       result.getByText("Sorry, an unexpected error has occurred."),
     ).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe("route error page", async () => {
   it("navigates back when 'Go back' is clicked", () => {
     const navigateHookMock = vi.fn();
     rrd.useNavigate = vi.fn().mockReturnValue(navigateHookMock);
-    const result = render(ErrorPage());
+    const result = render(<ErrorPage />);
 
     fireEvent.click(result.getByText("Go back"));
     expect(navigateHookMock).toHaveBeenCalled();
@@ -73,7 +73,7 @@ describe("route error page", async () => {
     const navigateHookMock = vi.fn();
     rrd.useNavigate = vi.fn().mockReturnValue(navigateHookMock);
 
-    const result = render(ErrorPage());
+    const result = render(<ErrorPage />);
     fireEvent.click(result.getByText("Go home"));
     expect(navigateHookMock).toHaveBeenCalledWith("/");
   });
