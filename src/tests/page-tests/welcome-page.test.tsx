@@ -1,11 +1,19 @@
-import { describe, it, expect, afterEach } from "vitest";
+import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 
 import App from "@/App";
 import WelcomePage from "@/pages/welcome-page";
 import quotes from "@/lib/quotes";
 
-describe("/ route", () => {
+vi.mock("react-router-dom", async (importOriginal) => {
+  const mod: any = await importOriginal();
+  return {
+    ...mod,
+    useNavigate: vi.fn(),
+  };
+});
+
+describe("/ route", async () => {
   afterEach(cleanup);
 
   it("renders welcome page for root route", () => {

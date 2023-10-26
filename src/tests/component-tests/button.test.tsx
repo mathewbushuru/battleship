@@ -16,7 +16,7 @@ describe("<Button />", () => {
     const result = render(<Button />);
 
     const button = result.getByRole("button");
-    expect(button).toHaveClass("bg-stone-800");
+    expect(button).toHaveClass("bg-primary");
     expect(button).toHaveClass("h-14");
   });
 

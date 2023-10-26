@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import WelcomePage from "@/pages/welcome-page";
 import ErrorPage from "@/pages/error-page";
+import PlacementPage from "./pages/placement-page";
 
 const router = createBrowserRouter([
   {
@@ -9,11 +10,15 @@ const router = createBrowserRouter([
     element: <WelcomePage />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/placement",
+    element: <PlacementPage />,
+  },
 ]);
 
 function App() {
   return (
-    <div data-testid="App" className="bg-background h-screen">
+    <div data-testid="App" className="h-screen bg-background text-primary">
       <RouterProvider router={router} />
     </div>
   );

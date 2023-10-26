@@ -24,8 +24,8 @@ function ErrorPage() {
       <h1>Oops!</h1>
       <pre className="text-sm">{content}</pre>
       <div className="flex gap-4">
-        <Button onClick={() => navigate(-1)}>Go back</Button>
-        <Button onClick={() => navigate("/")}>Go home</Button>
+        <Button size="sm" onClick={() => navigate(-1)}>Go back</Button>
+        <Button size="sm" onClick={() => navigate("/")}>Go home</Button>
       </div>
     </div>
   );
