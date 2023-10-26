@@ -67,4 +67,16 @@ describe("/ route", async () => {
       result.getByRole("button", { name: /enter battle/i }),
     ).toBeInTheDocument();
   });
+
+  it("navigates to placement page when enter battle button is clicked", async () => {
+    const rrd = await import("react-router-dom");
+    const navigateHookMock = vi.fn();
+    rrd.useNavigate = vi.fn().mockImplementation(() => navigateHookMock);
+    const result = render(<WelcomePage />);
+    const enterBattleBtn = result.getByRole("button", {
+      name: /enter battle/i,
+    });
+    fireEvent.click(enterBattleBtn);
+    expect(navigateHookMock).toBeCalledWith("/placement");
+  });
 });

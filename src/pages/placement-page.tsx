@@ -6,7 +6,7 @@ function PlacementPage() {
     <div className="space-y-4 px-6 py-6">
       <Header />
       <p className="text-center text-lg">Lieutenant, place your Carrier</p>
-      <div className="flex justify-between px-12">
+      <div className="flex justify-center flex-wrap gap-y-2 sm:px-12 sm:justify-between lg:justify-center lg:gap-x-12">
         <ShipSelectorIcon name="Carrier" cells={5} isActive={true} />
         <ShipSelectorIcon name="Battleship" cells={4} />
         <ShipSelectorIcon name="Destroyer" cells={3} />
