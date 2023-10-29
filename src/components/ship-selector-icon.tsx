@@ -1,23 +1,29 @@
 import { Ship } from "lucide-react";
+import {type ClassValue } from "clsx";
 
 import { cn } from "@/lib/ui-utils";
 
 interface shipSelectorProps {
   name: string;
   cells: number;
-  isActive?: boolean;
+  isActive: boolean;
+  isOnBoard: boolean;
+  shipColorClass: ClassValue;
 }
 
 function ShipSelectorIcon({
   name,
   cells,
   isActive = false,
+  isOnBoard = false,
+  shipColorClass
 }: shipSelectorProps) {
   return (
     <div
       className={cn(
         "flex flex-col items-center gap-1 rounded-md px-4 py-2",
-        isActive && "border border-primary bg-stone-200",
+        isActive && "bg-cyan-50",
+        isOnBoard && `bg-secondary text-gray-200 ${shipColorClass}`,
       )}
     >
       <p className="">{name}</p>

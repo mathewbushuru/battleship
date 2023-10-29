@@ -21,10 +21,8 @@ The main purpose of this project is to explore testing in React while creating a
 - [x] UI configuration - clsx, twMerge, cva, lucide icons
 - [x] Deployment to Vercel 
 - [x] Welcome page
-- [ ] Ship parent component - parent to the PatrolBoat, SubMarine, Destroyer, BattleShip and Carrier components
-- [ ] Implement individual ship components 
-- [ ] GameBoard component - for player and opponent's boards
-- [ ] Player component
+- [ ] Ship placement page
+- [ ] Game page
 - [ ] Main game loop
 - [ ] Drag and drop for ships during game setup
 - [ ] Smarter computer player 

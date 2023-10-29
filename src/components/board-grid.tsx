@@ -1,8 +1,11 @@
 import { cn } from "@/lib/ui-utils";
 
 function BoardCell({ row, col }: { row: number; col: number }) {
+  console.log(row, col);
   return (
-    <div className="border-secondary m-0.5 h-11 w-11 rounded-sm border">{`${row} ${col}`}</div>
+    <div className="border-secondary m-0.5 h-8 w-8 rounded-sm border sm:h-11 sm:w-11">
+      {" "}
+    </div>
   );
 }
 
