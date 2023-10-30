@@ -53,6 +53,7 @@ function BoardRow({
   >;
 }) {
   const currentShip = usePlacementStore(state => state.currentShip);
+
   return (
     <div className="flex">
       {Array(10)

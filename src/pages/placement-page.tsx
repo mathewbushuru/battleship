@@ -5,15 +5,9 @@ import ShipSelectorIcon from "@/components/ship-selector-icon";
 import BoardGrid from "@/components/board-grid";
 
 function PlacementPage() {
-  const allShips = [
-    { name: "Carrier", shipColorClass: "bg-amber-500", cells: 5 },
-    { name: "Battleship", shipColorClass: "bg-teal-500", cells: 4 },
-    { name: "Destroyer", shipColorClass: "bg-cyan-500", cells: 3 },
-    { name: "Submarine", shipColorClass: "bg-indigo-500", cells: 3 },
-    { name: "Patroller", shipColorClass: "bg-rose-500", cells: 2 },
-  ];
-  const placedShips: string[] = [];
-  const currentShip = usePlacementStore(state => state.currentShip)
+  const shipData = usePlacementStore((state) => state.shipData);
+
+  const currentShip = usePlacementStore((state) => state.currentShip);
 
   return (
     <div className="px-6 py-6">
@@ -23,39 +17,39 @@ function PlacementPage() {
       </p>
       <div className="mt-4 flex flex-wrap justify-center gap-y-2 sm:justify-between sm:px-12 lg:justify-center lg:gap-x-12">
         <ShipSelectorIcon
-          name="Carrier"
-          cells={5}
-          isActive={currentShip.name === "Carrier"}
-          isOnBoard={placedShips.some((ship) => ship === "Carrier")}
-          shipColorClass="bg-amber-500"
+          name={shipData.carrier.name}
+          cells={shipData.carrier.cells}
+          isActive={shipData.carrier.beingPlaced}
+          isOnBoard={shipData.carrier.alreadyPlaced}
+          shipColorClass={shipData.carrier.shipColorClass}
         />
         <ShipSelectorIcon
-          name="Battleship"
-          cells={4}
-          isActive={currentShip.name === "Battleship"}
-          isOnBoard={placedShips.some((ship) => ship === "Battleship")}
-          shipColorClass="bg-teal-500"
+          name={shipData.battleship.name}
+          cells={shipData.battleship.cells}
+          isActive={shipData.battleship.beingPlaced}
+          isOnBoard={shipData.battleship.alreadyPlaced}
+          shipColorClass={shipData.battleship.shipColorClass}
         />
         <ShipSelectorIcon
-          name="Destroyer"
-          cells={3}
-          isActive={currentShip.name === "Destroyer"}
-          isOnBoard={placedShips.some((ship) => ship === "Destroyer")}
-          shipColorClass="bg-cyan-500"
+          name={shipData.destroyer.name}
+          cells={shipData.destroyer.cells}
+          isActive={shipData.destroyer.beingPlaced}
+          isOnBoard={shipData.destroyer.alreadyPlaced}
+          shipColorClass={shipData.destroyer.shipColorClass}
         />
         <ShipSelectorIcon
-          name="Submarine"
-          cells={3}
-          isActive={currentShip.name === "Submarine"}
-          isOnBoard={placedShips.some((ship) => ship === "Submarine")}
-          shipColorClass="bg-indigo-500"
+          name={shipData.submarine.name}
+          cells={shipData.submarine.cells}
+          isActive={shipData.submarine.beingPlaced}
+          isOnBoard={shipData.submarine.alreadyPlaced}
+          shipColorClass={shipData.submarine.shipColorClass}
         />
         <ShipSelectorIcon
-          name="Patroller"
-          cells={2}
-          isActive={currentShip.name === "Patroller"}
-          isOnBoard={placedShips.some((ship) => ship === "Patroller")}
-          shipColorClass="bg-rose-500"
+          name={shipData.patroller.name}
+          cells={shipData.patroller.cells}
+          isActive={shipData.patroller.beingPlaced}
+          isOnBoard={shipData.patroller.alreadyPlaced}
+          shipColorClass={shipData.patroller.shipColorClass}
         />
       </div>
       <BoardGrid className="mt-8" />
