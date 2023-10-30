@@ -13,12 +13,7 @@ function PlacementPage() {
     { name: "Patroller", shipColorClass: "bg-rose-500", cells: 2 },
   ];
   const placedShips: string[] = [];
-  // const currentShip = allShips.shift() as {
-  //   name: string;
-  //   shipColorClass: string;
-  //   cells: number;
-  // };
-  const currentShip = usePlacementStore((state: any) => state.currentShip);
+  const currentShip = usePlacementStore(state => state.currentShip)
 
   return (
     <div className="px-6 py-6">

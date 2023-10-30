@@ -6,9 +6,16 @@ interface shipType {
   cells: number;
 }
 
-const usePlacementStore = create((set) => ({
+type state = {
+  currentShip: shipType;
+};
+
+type actions = {
+  setCurrentShip: (nextShip: shipType) => void;
+};
+
+const usePlacementStore = create<state & actions>((set) => ({
   currentShip: { name: "Carrier", shipColorClass: "bg-amber-500", cells: 5 },
-//   currentShip: { name: "Patroller", shipColorClass: "bg-rose-500", cells: 2 },
   setCurrentShip: (nextShip: shipType) =>
     set(() => ({ currentShip: nextShip })),
 }));

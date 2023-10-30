@@ -22,7 +22,7 @@ function BoardCell({
   >;
   isValidPlacement: boolean;
 }) {
-  const currentShip = usePlacementStore((state: any) => state.currentShip);
+  const currentShip = usePlacementStore(state => state.currentShip);
   return (
     <div
       className={cn(
@@ -52,7 +52,7 @@ function BoardRow({
     }>
   >;
 }) {
-  const currentShip = usePlacementStore((state: any) => state.currentShip);
+  const currentShip = usePlacementStore(state => state.currentShip);
   return (
     <div className="flex">
       {Array(10)
