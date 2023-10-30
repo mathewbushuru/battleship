@@ -28,7 +28,7 @@ type state = {
 
 type actions = {
   setCurrentShip: (nextShip: currentShipType) => void;
-  setShipData: (updatedShipData: any) => void;
+  setShipData: (updatedShipData: state["shipData"]) => void;
 };
 
 const usePlacementStore = create<state & actions>((set) => ({
@@ -72,8 +72,7 @@ const usePlacementStore = create<state & actions>((set) => ({
       alreadyPlaced: false,
     },
   },
-  setShipData: (updatedShipData) =>
-    set((state) => (state.shipData = updatedShipData)),
+  setShipData: (updatedShipData) => set(() => ({ shipData: updatedShipData })),
 }));
 
 export default usePlacementStore;
