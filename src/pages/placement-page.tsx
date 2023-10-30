@@ -4,14 +4,18 @@ import BoardGrid from "@/components/board-grid";
 
 function PlacementPage() {
   const allShips = [
-    { name: "Carrier", shipColorClass: "bg-amber-500" },
-    { name: "Battleship", shipColorClass: "bg-teal-500" },
-    { name: "Destroyer", shipColorClass: "bg-cyan-500" },
-    { name: "Submarine", shipColorClass: "bg-indigo-500" },
-    { name: "Patroller", shipColorClass: "bg-rose-500" },
+    { name: "Carrier", shipColorClass: "bg-amber-500", cells: 5 },
+    { name: "Battleship", shipColorClass: "bg-teal-500", cells: 4 },
+    { name: "Destroyer", shipColorClass: "bg-cyan-500", cells: 3 },
+    { name: "Submarine", shipColorClass: "bg-indigo-500", cells: 3 },
+    { name: "Patroller", shipColorClass: "bg-rose-500", cells: 2 },
   ];
   const placedShips: string[] = [];
-  const currentShip = allShips.shift();
+  const currentShip = allShips.shift() as {
+    name: string;
+    shipColorClass: string;
+    cells: number;
+  };
 
   return (
     <div className="px-6 py-6">
@@ -23,42 +27,43 @@ function PlacementPage() {
         <ShipSelectorIcon
           name="Carrier"
           cells={5}
-          isActive={currentShip?.name === "Carrier"}
+          isActive={currentShip.name === "Carrier"}
           isOnBoard={placedShips.some((ship) => ship === "Carrier")}
           shipColorClass="bg-amber-500"
         />
         <ShipSelectorIcon
           name="Battleship"
           cells={4}
-          isActive={currentShip?.name === "Battleship"}
+          isActive={currentShip.name === "Battleship"}
           isOnBoard={placedShips.some((ship) => ship === "Battleship")}
           shipColorClass="bg-teal-500"
         />
         <ShipSelectorIcon
           name="Destroyer"
           cells={3}
-          isActive={currentShip?.name === "Destroyer"}
+          isActive={currentShip.name === "Destroyer"}
           isOnBoard={placedShips.some((ship) => ship === "Destroyer")}
           shipColorClass="bg-cyan-500"
         />
         <ShipSelectorIcon
           name="Submarine"
           cells={3}
-          isActive={currentShip?.name === "Submarine"}
+          isActive={currentShip.name === "Submarine"}
           isOnBoard={placedShips.some((ship) => ship === "Submarine")}
           shipColorClass="bg-indigo-500"
         />
         <ShipSelectorIcon
           name="Patroller"
           cells={2}
-          isActive={currentShip?.name === "Patroller"}
+          isActive={currentShip.name === "Patroller"}
           isOnBoard={placedShips.some((ship) => ship === "Patroller")}
           shipColorClass="bg-rose-500"
         />
       </div>
       <BoardGrid
         className="mt-8"
-        currentShipColorClass={currentShip?.shipColorClass}
+        currentShipColorClass={currentShip.shipColorClass}
+        numOfShipCells={currentShip.cells}
       />
     </div>
   );

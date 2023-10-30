@@ -43,6 +43,7 @@ function BoardRow({
   currentShipColorClass,
   mouseOverCoords,
   setMouseOverCoords,
+  numOfShipCells
 }: {
   row: number;
   currentShipColorClass: ClassValue;
@@ -53,6 +54,7 @@ function BoardRow({
       col: number | null;
     }>
   >;
+  numOfShipCells: number;
 }) {
   return (
     <div className="flex">
@@ -69,12 +71,12 @@ function BoardRow({
                 mouseOverCoords.row !== null &&
                 row === mouseOverCoords.row &&
                 col >= mouseOverCoords.col &&
-                col < mouseOverCoords.col + 5
+                col < mouseOverCoords.col + numOfShipCells
               }
               currentShipColorClass={currentShipColorClass}
               setMouseOverCoords={setMouseOverCoords}
               isValidPlacement={
-                mouseOverCoords.col !== null && mouseOverCoords.col + 4 < 10
+                mouseOverCoords.col !== null && mouseOverCoords.col + (numOfShipCells - 1) < 10
               }
             />
           );
@@ -85,11 +87,13 @@ function BoardRow({
 
 interface boardGridProps extends React.HTMLAttributes<HTMLDivElement> {
   currentShipColorClass: ClassValue;
+  numOfShipCells: number;
 }
 
 export default function BoardGrid({
   className,
   currentShipColorClass,
+  numOfShipCells,
   ...props
 }: boardGridProps) {
   const [mouseOverCoords, setMouseOverCoords] = useState<{
@@ -111,6 +115,7 @@ export default function BoardGrid({
               currentShipColorClass={currentShipColorClass}
               mouseOverCoords={mouseOverCoords}
               setMouseOverCoords={setMouseOverCoords}
+              numOfShipCells = {numOfShipCells}
             />
           );
         })}
