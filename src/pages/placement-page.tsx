@@ -1,3 +1,5 @@
+import usePlacementStore from "@/store/use-placement-store";
+
 import Header from "@/components/header";
 import ShipSelectorIcon from "@/components/ship-selector-icon";
 import BoardGrid from "@/components/board-grid";
@@ -11,17 +13,18 @@ function PlacementPage() {
     { name: "Patroller", shipColorClass: "bg-rose-500", cells: 2 },
   ];
   const placedShips: string[] = [];
-  const currentShip = allShips.shift() as {
-    name: string;
-    shipColorClass: string;
-    cells: number;
-  };
+  // const currentShip = allShips.shift() as {
+  //   name: string;
+  //   shipColorClass: string;
+  //   cells: number;
+  // };
+  const currentShip = usePlacementStore((state: any) => state.currentShip);
 
   return (
     <div className="px-6 py-6">
       <Header />
       <p className="mt-4 text-center text-base sm:text-lg">
-        Lieutenant, place your {currentShip?.name}
+        Lieutenant, place your {currentShip.name}
       </p>
       <div className="mt-4 flex flex-wrap justify-center gap-y-2 sm:justify-between sm:px-12 lg:justify-center lg:gap-x-12">
         <ShipSelectorIcon
@@ -60,11 +63,7 @@ function PlacementPage() {
           shipColorClass="bg-rose-500"
         />
       </div>
-      <BoardGrid
-        className="mt-8"
-        currentShipColorClass={currentShip.shipColorClass}
-        numOfShipCells={currentShip.cells}
-      />
+      <BoardGrid className="mt-8" />
     </div>
   );
 }
