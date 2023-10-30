@@ -9,6 +9,7 @@ function BoardCell({
   currentShipColorClass,
   isMouseOver,
   setMouseOverCoords,
+  isValidPlacement,
 }: {
   row: number;
   col: number;
@@ -20,14 +21,17 @@ function BoardCell({
       col: number | null;
     }>
   >;
+  isValidPlacement: boolean;
 }) {
   return (
     <div
       className={cn(
-        "m-0.5 h-8 w-8 rounded-sm border border-secondary sm:h-11 sm:w-11",
+        "m-0.5 h-8 w-8 cursor-pointer rounded-sm border border-secondary sm:h-11 sm:w-11",
         isMouseOver && `${currentShipColorClass}`,
+        !isValidPlacement && `cursor-not-allowed opacity-80`,
       )}
-      onMouseOver={() => setMouseOverCoords({ row, col })}
+      onMouseEnter={() => setMouseOverCoords({ row, col })}
+      onMouseLeave={() => setMouseOverCoords({ row: null, col: null })}
     >
       {" "}
     </div>
@@ -69,6 +73,9 @@ function BoardRow({
               }
               currentShipColorClass={currentShipColorClass}
               setMouseOverCoords={setMouseOverCoords}
+              isValidPlacement={
+                mouseOverCoords.col !== null && mouseOverCoords.col + 4 < 10
+              }
             />
           );
         })}

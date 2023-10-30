@@ -16,7 +16,7 @@ function PlacementPage() {
   return (
     <div className="px-6 py-6">
       <Header />
-      <p className="mt-4 text-center text-lg">
+      <p className="mt-4 text-center text-base sm:text-lg">
         Lieutenant, place your {currentShip?.name}
       </p>
       <div className="mt-4 flex flex-wrap justify-center gap-y-2 sm:justify-between sm:px-12 lg:justify-center lg:gap-x-12">
@@ -56,7 +56,10 @@ function PlacementPage() {
           shipColorClass="bg-rose-500"
         />
       </div>
-      <BoardGrid className="mt-8" currentShipColorClass={currentShip?.shipColorClass} />
+      <BoardGrid
+        className="mt-8"
+        currentShipColorClass={currentShip?.shipColorClass}
+      />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { Ship } from "lucide-react";
-import {type ClassValue } from "clsx";
+import { type ClassValue } from "clsx";
 
 import { cn } from "@/lib/ui-utils";
 
@@ -16,7 +16,7 @@ function ShipSelectorIcon({
   cells,
   isActive = false,
   isOnBoard = false,
-  shipColorClass
+  shipColorClass,
 }: shipSelectorProps) {
   return (
     <div
@@ -26,12 +26,12 @@ function ShipSelectorIcon({
         isOnBoard && `bg-secondary text-gray-200 ${shipColorClass}`,
       )}
     >
-      <p className="">{name}</p>
+      <p className="text-sm sm:text-base">{name}</p>
       <div className="flex gap-1">
         {Array(cells)
           .fill(null)
           .map((_, index) => {
-            return <Ship className="h-4 w-4" key={index} />;
+            return <Ship className="h-3 w-3 sm:h-4 sm:w-4" key={index} />;
           })}
       </div>
     </div>
