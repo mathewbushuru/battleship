@@ -7,22 +7,27 @@ function BoardCell({
   row,
   col,
   currentShipColorClass,
+  isMouseOver,
+  setMouseOverCoords,
 }: {
   row: number;
   col: number;
   currentShipColorClass: ClassValue;
+  isMouseOver: boolean;
+  setMouseOverCoords: React.Dispatch<
+    React.SetStateAction<{
+      row: number | null;
+      col: number | null;
+    }>
+  >;
 }) {
-  const [isMouseOver, setIsMouseOver] = useState(false);
-  console.log(row, col);
-
   return (
     <div
       className={cn(
-        "border-secondary m-0.5 h-8 w-8 rounded-sm border sm:h-11 sm:w-11",
+        "m-0.5 h-8 w-8 rounded-sm border border-secondary sm:h-11 sm:w-11",
         isMouseOver && `${currentShipColorClass}`,
       )}
-      onMouseEnter={() => setIsMouseOver(true)}
-      onMouseLeave={() => setIsMouseOver(false)}
+      onMouseOver={() => setMouseOverCoords({ row, col })}
     >
       {" "}
     </div>
@@ -32,21 +37,38 @@ function BoardCell({
 function BoardRow({
   row,
   currentShipColorClass,
+  mouseOverCoords,
+  setMouseOverCoords,
 }: {
   row: number;
   currentShipColorClass: ClassValue;
+  mouseOverCoords: { row: number | null; col: number | null };
+  setMouseOverCoords: React.Dispatch<
+    React.SetStateAction<{
+      row: number | null;
+      col: number | null;
+    }>
+  >;
 }) {
   return (
     <div className="flex">
       {Array(10)
         .fill(null)
-        .map((_, colIndex) => {
+        .map((_, col) => {
           return (
             <BoardCell
-              key={colIndex}
+              key={col}
               row={row}
-              col={colIndex}
+              col={col}
+              isMouseOver={
+                mouseOverCoords.col !== null &&
+                mouseOverCoords.row !== null &&
+                row === mouseOverCoords.row &&
+                col >= mouseOverCoords.col &&
+                col < mouseOverCoords.col + 5
+              }
               currentShipColorClass={currentShipColorClass}
+              setMouseOverCoords={setMouseOverCoords}
             />
           );
         })}
@@ -63,6 +85,13 @@ export default function BoardGrid({
   currentShipColorClass,
   ...props
 }: boardGridProps) {
+  const [mouseOverCoords, setMouseOverCoords] = useState<{
+    row: number | null;
+    col: number | null;
+  }>({ row: null, col: null });
+
+  console.log(mouseOverCoords);
+
   return (
     <div className={cn("flex flex-col items-center", className)} {...props}>
       {Array(10)
@@ -73,6 +102,8 @@ export default function BoardGrid({
               key={rowIndex}
               row={rowIndex}
               currentShipColorClass={currentShipColorClass}
+              mouseOverCoords={mouseOverCoords}
+              setMouseOverCoords={setMouseOverCoords}
             />
           );
         })}
