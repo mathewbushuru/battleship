@@ -15,6 +15,25 @@ function BoardCell({
 }) {
   const currentShip = useStore((state) => state.currentShip);
   const setMouseOverCoords = useStore((state) => state.setMouseOverCoords);
+  const shipData = useStore((state) => state.shipData);
+  const setShipData = useStore((state) => state.setShipData);
+
+  const handleClick = () => {
+    if (!isValidPlacement) {
+      return;
+    }
+    const updatedData = { ...shipData };
+    const currentShipName =
+      currentShip.name.toLowerCase() as keyof typeof updatedData;
+    const occupiedCells = [];
+    for (let i = 0; i < currentShip.cells; i++) {
+      occupiedCells.push([row, col + i])
+    }
+    updatedData[currentShipName].occupiedCells = occupiedCells;
+    updatedData[currentShipName].beingPlaced = false; 
+    updatedData[currentShipName].alreadyPlaced = true;
+    setShipData(updatedData);
+  };
 
   return (
     <div
@@ -25,6 +44,7 @@ function BoardCell({
       )}
       onMouseEnter={() => setMouseOverCoords({ row, col })}
       onMouseLeave={() => setMouseOverCoords({ row: null, col: null })}
+      onClick={handleClick}
     >
       {" "}
     </div>

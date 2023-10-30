@@ -10,7 +10,8 @@ interface currentShipType {
 interface shipDataType {
   name: string;
   shipColorClass: string;
-  cells: number;
+  numOfCells: number;
+  occupiedCells: number[][];
   beingPlaced: boolean;
   alreadyPlaced: boolean;
 }
@@ -44,35 +45,40 @@ const useStore = create<state & actions>((set) => ({
     carrier: {
       name: "Carrier",
       shipColorClass: "bg-amber-500",
-      cells: 5,
+      numOfCells: 5,
+      occupiedCells: [],
       beingPlaced: true,
       alreadyPlaced: false,
     },
     battleship: {
       name: "Battleship",
       shipColorClass: "bg-teal-500",
-      cells: 4,
+      numOfCells: 4,
+      occupiedCells: [],
       beingPlaced: false,
       alreadyPlaced: false,
     },
     destroyer: {
       name: "Destroyer",
       shipColorClass: "bg-cyan-500",
-      cells: 3,
+      numOfCells: 3,
+      occupiedCells: [],
       beingPlaced: false,
       alreadyPlaced: false,
     },
     submarine: {
       name: "Submarine",
       shipColorClass: "bg-indigo-500",
-      cells: 3,
+      numOfCells: 3,
+      occupiedCells: [],
       beingPlaced: false,
       alreadyPlaced: false,
     },
     patroller: {
       name: "Patroller",
       shipColorClass: "bg-rose-500",
-      cells: 2,
+      numOfCells: 2,
+      occupiedCells: [],
       beingPlaced: false,
       alreadyPlaced: false,
     },
