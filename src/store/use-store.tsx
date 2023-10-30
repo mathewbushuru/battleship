@@ -24,11 +24,16 @@ type state = {
     submarine: shipDataType;
     patroller: shipDataType;
   };
+  mouseOverCoords: {
+    row: number | null;
+    col: number | null;
+  };
 };
 
 type actions = {
   setCurrentShip: (nextShip: currentShipType) => void;
   setShipData: (updatedShipData: state["shipData"]) => void;
+  setMouseOverCoords: (newCoords: state["mouseOverCoords"]) => void;
 };
 
 const useStore = create<state & actions>((set) => ({
@@ -73,6 +78,12 @@ const useStore = create<state & actions>((set) => ({
     },
   },
   setShipData: (updatedShipData) => set(() => ({ shipData: updatedShipData })),
+  mouseOverCoords: {
+    row: null,
+    col: null,
+  },
+  setMouseOverCoords: (newCoords) =>
+    set(() => ({ mouseOverCoords: newCoords })),
 }));
 
 export default useStore;

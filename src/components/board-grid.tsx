@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import useStore from "@/store/use-store";
 
 import { cn } from "@/lib/ui-utils";
@@ -8,21 +6,16 @@ function BoardCell({
   row,
   col,
   isMouseOver,
-  setMouseOverCoords,
   isValidPlacement,
 }: {
   row: number;
   col: number;
   isMouseOver: boolean;
-  setMouseOverCoords: React.Dispatch<
-    React.SetStateAction<{
-      row: number | null;
-      col: number | null;
-    }>
-  >;
   isValidPlacement: boolean;
 }) {
-  const currentShip = useStore(state => state.currentShip);
+  const currentShip = useStore((state) => state.currentShip);
+  const setMouseOverCoords = useStore((state) => state.setMouseOverCoords);
+
   return (
     <div
       className={cn(
@@ -38,22 +31,9 @@ function BoardCell({
   );
 }
 
-function BoardRow({
-  row,
-  mouseOverCoords,
-  setMouseOverCoords,
-}: {
-  row: number;
-  mouseOverCoords: { row: number | null; col: number | null };
-  setMouseOverCoords: React.Dispatch<
-    React.SetStateAction<{
-      row: number | null;
-      col: number | null;
-    }>
-  >;
-}) {
-  const currentShip = useStore(state => state.currentShip);
-
+function BoardRow({ row }: { row: number }) {
+  const currentShip = useStore((state) => state.currentShip);
+  const mouseOverCoords = useStore((state) => state.mouseOverCoords);
   return (
     <div className="flex">
       {Array(10)
@@ -71,7 +51,6 @@ function BoardRow({
                 col >= mouseOverCoords.col &&
                 col < mouseOverCoords.col + currentShip.cells
               }
-              setMouseOverCoords={setMouseOverCoords}
               isValidPlacement={
                 mouseOverCoords.col !== null &&
                 mouseOverCoords.col + (currentShip.cells - 1) < 10
@@ -86,26 +65,12 @@ function BoardRow({
 interface boardGridProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function BoardGrid({ className, ...props }: boardGridProps) {
-  const [mouseOverCoords, setMouseOverCoords] = useState<{
-    row: number | null;
-    col: number | null;
-  }>({ row: null, col: null });
-
-  console.log(mouseOverCoords);
-
   return (
     <div className={cn("flex flex-col items-center", className)} {...props}>
       {Array(10)
         .fill(null)
         .map((_, rowIndex) => {
-          return (
-            <BoardRow
-              key={rowIndex}
-              row={rowIndex}
-              mouseOverCoords={mouseOverCoords}
-              setMouseOverCoords={setMouseOverCoords}
-            />
-          );
+          return <BoardRow key={rowIndex} row={rowIndex} />;
         })}
     </div>
   );
