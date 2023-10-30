@@ -1,13 +1,13 @@
-import usePlacementStore from "@/store/use-placement-store";
+import useStore from "@/store/use-store";
 
 import Header from "@/components/header";
 import ShipSelectorIcon from "@/components/ship-selector-icon";
 import BoardGrid from "@/components/board-grid";
 
 function PlacementPage() {
-  const shipData = usePlacementStore((state) => state.shipData);
+  const shipData = useStore((state) => state.shipData);
 
-  const currentShip = usePlacementStore((state) => state.currentShip);
+  const currentShip = useStore((state) => state.currentShip);
 
   return (
     <div className="px-6 py-6">

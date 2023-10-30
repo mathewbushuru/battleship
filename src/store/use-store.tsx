@@ -31,7 +31,7 @@ type actions = {
   setShipData: (updatedShipData: state["shipData"]) => void;
 };
 
-const usePlacementStore = create<state & actions>((set) => ({
+const useStore = create<state & actions>((set) => ({
   currentShip: { name: "Carrier", shipColorClass: "bg-amber-500", cells: 5 },
   setCurrentShip: (nextShip: currentShipType) =>
     set(() => ({ currentShip: nextShip })),
@@ -75,5 +75,5 @@ const usePlacementStore = create<state & actions>((set) => ({
   setShipData: (updatedShipData) => set(() => ({ shipData: updatedShipData })),
 }));
 
-export default usePlacementStore;
+export default useStore;
 export { type shipDataType };

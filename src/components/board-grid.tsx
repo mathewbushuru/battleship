@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import usePlacementStore from "@/store/use-placement-store";
+import useStore from "@/store/use-store";
 
 import { cn } from "@/lib/ui-utils";
 
@@ -22,7 +22,7 @@ function BoardCell({
   >;
   isValidPlacement: boolean;
 }) {
-  const currentShip = usePlacementStore(state => state.currentShip);
+  const currentShip = useStore(state => state.currentShip);
   return (
     <div
       className={cn(
@@ -52,7 +52,7 @@ function BoardRow({
     }>
   >;
 }) {
-  const currentShip = usePlacementStore(state => state.currentShip);
+  const currentShip = useStore(state => state.currentShip);
 
   return (
     <div className="flex">
