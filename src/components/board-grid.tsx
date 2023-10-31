@@ -18,6 +18,32 @@ function BoardCell({
   const shipData = useStore((state) => state.shipData);
   const setShipData = useStore((state) => state.setShipData);
 
+  const isCarrierCell = shipData.carrier.occupiedCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+  const isBattleShipCell = shipData.battleship.occupiedCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+  const isDestroyerCell = shipData.destroyer.occupiedCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+  const isSubmarineCell = shipData.submarine.occupiedCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+  const isPatrollerCell = shipData.patroller.occupiedCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+
+  if (
+    isCarrierCell ||
+    isBattleShipCell ||
+    isDestroyerCell ||
+    isSubmarineCell ||
+    isPatrollerCell
+  ) {
+    isValidPlacement = false;
+  }
+
   const handleClick = () => {
     if (!isValidPlacement) {
       return;
@@ -27,10 +53,10 @@ function BoardCell({
       currentShip.name.toLowerCase() as keyof typeof updatedData;
     const occupiedCells = [];
     for (let i = 0; i < currentShip.cells; i++) {
-      occupiedCells.push([row, col + i])
+      occupiedCells.push([row, col + i]);
     }
     updatedData[currentShipName].occupiedCells = occupiedCells;
-    updatedData[currentShipName].beingPlaced = false; 
+    updatedData[currentShipName].beingPlaced = false;
     updatedData[currentShipName].alreadyPlaced = true;
     setShipData(updatedData);
   };
@@ -41,6 +67,11 @@ function BoardCell({
         "m-0.5 h-8 w-8 cursor-pointer rounded-sm border border-secondary sm:h-11 sm:w-11",
         isMouseOver && `${currentShip.shipColorClass}`,
         !isValidPlacement && `cursor-not-allowed opacity-80`,
+        isCarrierCell && shipData.carrier.shipColorClass,
+        isBattleShipCell && shipData.battleship.shipColorClass,
+        isDestroyerCell && shipData.destroyer.shipColorClass,
+        isSubmarineCell && shipData.submarine.shipColorClass,
+        isPatrollerCell && shipData.patroller.shipColorClass,
       )}
       onMouseEnter={() => setMouseOverCoords({ row, col })}
       onMouseLeave={() => setMouseOverCoords({ row: null, col: null })}
