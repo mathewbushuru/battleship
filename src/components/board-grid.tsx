@@ -1,5 +1,6 @@
-import useStore from "@/store/use-store";
+import { Ship } from "lucide-react";
 
+import useStore from "@/store/use-store";
 import { cn } from "@/lib/ui-utils";
 
 function BoardCell({
@@ -14,14 +15,19 @@ function BoardCell({
   isValidPlacement: boolean;
 }) {
   const currentShip = useStore((state) => state.currentShip);
+  const setCurrentShip = useStore((state) => state.setCurrentShip);
   const setMouseOverCoords = useStore((state) => state.setMouseOverCoords);
   const shipData = useStore((state) => state.shipData);
   const setShipData = useStore((state) => state.setShipData);
+  const nextShipsToBePlaced = useStore((state) => state.nextShipsToBePlaced);
+  const setNextShipsToBePlaced = useStore(
+    (state) => state.setNextShipsToBePlaced,
+  );
 
   const isCarrierCell = shipData.carrier.occupiedCells.some(
     (el) => el[0] === row && el[1] === col,
   );
-  const isBattleShipCell = shipData.battleship.occupiedCells.some(
+  const isBattleshipCell = shipData.battleship.occupiedCells.some(
     (el) => el[0] === row && el[1] === col,
   );
   const isDestroyerCell = shipData.destroyer.occupiedCells.some(
@@ -34,20 +40,24 @@ function BoardCell({
     (el) => el[0] === row && el[1] === col,
   );
 
+  let cellContent: React.ReactNode = " ";
+
   if (
     isCarrierCell ||
-    isBattleShipCell ||
+    isBattleshipCell ||
     isDestroyerCell ||
     isSubmarineCell ||
     isPatrollerCell
   ) {
     isValidPlacement = false;
+    cellContent = <Ship className="h-4 w-4 sm:h-5 sm:w-5" />;
   }
 
   const handleClick = () => {
     if (!isValidPlacement) {
       return;
     }
+
     const updatedData = { ...shipData };
     const currentShipName =
       currentShip.name.toLowerCase() as keyof typeof updatedData;
@@ -56,19 +66,25 @@ function BoardCell({
       occupiedCells.push([row, col + i]);
     }
     updatedData[currentShipName].occupiedCells = occupiedCells;
-    updatedData[currentShipName].beingPlaced = false;
     updatedData[currentShipName].alreadyPlaced = true;
     setShipData(updatedData);
+
+    const updatedNextShips = [...nextShipsToBePlaced];
+    const nextShip = updatedNextShips.shift();
+    if (nextShip !== undefined) {
+      setCurrentShip(nextShip);
+    }
+    setNextShipsToBePlaced(updatedNextShips);
   };
 
   return (
     <div
       className={cn(
-        "m-0.5 h-8 w-8 cursor-pointer rounded-sm border border-secondary sm:h-11 sm:w-11",
+        "m-0.5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-sm border border-secondary text-gray-200 sm:h-11 sm:w-11",
         isMouseOver && `${currentShip.shipColorClass}`,
         !isValidPlacement && `cursor-not-allowed opacity-80`,
         isCarrierCell && shipData.carrier.shipColorClass,
-        isBattleShipCell && shipData.battleship.shipColorClass,
+        isBattleshipCell && shipData.battleship.shipColorClass,
         isDestroyerCell && shipData.destroyer.shipColorClass,
         isSubmarineCell && shipData.submarine.shipColorClass,
         isPatrollerCell && shipData.patroller.shipColorClass,
@@ -77,7 +93,7 @@ function BoardCell({
       onMouseLeave={() => setMouseOverCoords({ row: null, col: null })}
       onClick={handleClick}
     >
-      {" "}
+      {cellContent}
     </div>
   );
 }

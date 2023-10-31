@@ -12,7 +12,6 @@ interface shipDataType {
   shipColorClass: string;
   numOfCells: number;
   occupiedCells: number[][];
-  beingPlaced: boolean;
   alreadyPlaced: boolean;
 }
 
@@ -29,12 +28,20 @@ type state = {
     row: number | null;
     col: number | null;
   };
+  nextShipsToBePlaced: {
+    name: string;
+    shipColorClass: string;
+    cells: number;
+  }[];
 };
 
 type actions = {
   setCurrentShip: (nextShip: currentShipType) => void;
   setShipData: (updatedShipData: state["shipData"]) => void;
   setMouseOverCoords: (newCoords: state["mouseOverCoords"]) => void;
+  setNextShipsToBePlaced: (
+    updatedNextShips: state["nextShipsToBePlaced"],
+  ) => void;
 };
 
 const useStore = create<state & actions>((set) => ({
@@ -47,7 +54,6 @@ const useStore = create<state & actions>((set) => ({
       shipColorClass: "bg-amber-500",
       numOfCells: 5,
       occupiedCells: [],
-      beingPlaced: true,
       alreadyPlaced: false,
     },
     battleship: {
@@ -55,7 +61,6 @@ const useStore = create<state & actions>((set) => ({
       shipColorClass: "bg-teal-500",
       numOfCells: 4,
       occupiedCells: [],
-      beingPlaced: false,
       alreadyPlaced: false,
     },
     destroyer: {
@@ -63,7 +68,6 @@ const useStore = create<state & actions>((set) => ({
       shipColorClass: "bg-cyan-500",
       numOfCells: 3,
       occupiedCells: [],
-      beingPlaced: false,
       alreadyPlaced: false,
     },
     submarine: {
@@ -71,7 +75,6 @@ const useStore = create<state & actions>((set) => ({
       shipColorClass: "bg-indigo-500",
       numOfCells: 3,
       occupiedCells: [],
-      beingPlaced: false,
       alreadyPlaced: false,
     },
     patroller: {
@@ -79,7 +82,6 @@ const useStore = create<state & actions>((set) => ({
       shipColorClass: "bg-rose-500",
       numOfCells: 2,
       occupiedCells: [],
-      beingPlaced: false,
       alreadyPlaced: false,
     },
   },
@@ -90,6 +92,14 @@ const useStore = create<state & actions>((set) => ({
   },
   setMouseOverCoords: (newCoords) =>
     set(() => ({ mouseOverCoords: newCoords })),
+  nextShipsToBePlaced: [
+    { name: "Battleship", shipColorClass: "bg-teal-500", cells: 4 },
+    { name: "Destroyer", shipColorClass: "bg-cyan-500", cells: 3 },
+    { name: "Submarine", shipColorClass: "bg-indigo-500", cells: 3 },
+    { name: "Patroller", shipColorClass: "bg-rose-500", cells: 2 },
+  ],
+  setNextShipsToBePlaced: (updatedNextShips) =>
+    set(() => ({ nextShipsToBePlaced: updatedNextShips })),
 }));
 
 export default useStore;
