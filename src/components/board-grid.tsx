@@ -40,6 +40,9 @@ function BoardCell({
     (el) => el[0] === row && el[1] === col,
   );
 
+  const isPlacementComplete =
+    nextShipsToBePlaced.length === 0 && currentShip.name === "COMPLETE";
+
   let cellContent: React.ReactNode = " ";
 
   if (
@@ -54,7 +57,7 @@ function BoardCell({
   }
 
   const handleClick = () => {
-    if (!isValidPlacement) {
+    if (!isValidPlacement || isPlacementComplete) {
       return;
     }
 
@@ -73,6 +76,8 @@ function BoardCell({
     const nextShip = updatedNextShips.shift();
     if (nextShip !== undefined) {
       setCurrentShip(nextShip);
+    } else {
+      setCurrentShip({ name: "COMPLETE", shipColorClass: "", cells: 0 });
     }
     setNextShipsToBePlaced(updatedNextShips);
   };
@@ -80,9 +85,9 @@ function BoardCell({
   return (
     <div
       className={cn(
-        "m-0.5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-sm border border-secondary text-gray-200 sm:h-11 sm:w-11",
-        isMouseOver && `${currentShip.shipColorClass}`,
-        !isValidPlacement && `cursor-not-allowed opacity-80`,
+        "opacity-85 m-0.5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-sm border border-secondary bg-background text-gray-200 sm:h-11 sm:w-11",
+        isMouseOver && !isPlacementComplete && `${currentShip.shipColorClass}`,
+        !isValidPlacement && `cursor-not-allowed`,
         isCarrierCell && shipData.carrier.shipColorClass,
         isBattleshipCell && shipData.battleship.shipColorClass,
         isDestroyerCell && shipData.destroyer.shipColorClass,
@@ -133,12 +138,17 @@ interface boardGridProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function BoardGrid({ className, ...props }: boardGridProps) {
   return (
-    <div className={cn("flex flex-col items-center", className)} {...props}>
-      {Array(10)
-        .fill(null)
-        .map((_, rowIndex) => {
-          return <BoardRow key={rowIndex} row={rowIndex} />;
-        })}
+    <div
+      className={cn("mx-auto w-fit rounded-md bg-secondary p-2", className)}
+      {...props}
+    >
+      <div className="flex flex-col items-center">
+        {Array(10)
+          .fill(null)
+          .map((_, rowIndex) => {
+            return <BoardRow key={rowIndex} row={rowIndex} />;
+          })}
+      </div>
     </div>
   );
 }

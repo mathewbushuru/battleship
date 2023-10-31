@@ -6,15 +6,21 @@ import BoardGrid from "@/components/board-grid";
 
 function PlacementPage() {
   const shipData = useStore((state) => state.shipData);
-
   const currentShip = useStore((state) => state.currentShip);
+
+  let welcomeMessage: React.ReactNode;
+
+  if (currentShip.name === "COMPLETE") {
+    welcomeMessage =
+      "Thanks lieutenant, attack formation is in place. Reorder the ships or let's enter the battle.";
+  } else {
+    welcomeMessage = `Lieutenant, place your ${currentShip.name.toLowerCase()}...`;
+  }
 
   return (
     <div className="px-6 py-6">
       <Header />
-      <p className="mt-4 text-center text-base sm:text-lg">
-        Lieutenant, place your {currentShip.name}
-      </p>
+      <p className="mt-4 text-center text-base sm:text-lg">{welcomeMessage}</p>
       <div className="mt-4 flex flex-wrap justify-center gap-x-1 gap-y-2 sm:justify-between sm:px-12 lg:justify-center lg:gap-x-12">
         <ShipSelectorIcon
           name={shipData.carrier.name}
