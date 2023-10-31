@@ -43,6 +43,10 @@ function BoardCell({
   const isPlacementComplete =
     nextShipsToBePlaced.length === 0 && currentShip.name === "COMPLETE";
 
+  if (isPlacementComplete) {
+    isValidPlacement = false;
+  }
+
   let cellContent: React.ReactNode = " ";
 
   if (
@@ -85,7 +89,7 @@ function BoardCell({
   return (
     <div
       className={cn(
-        "opacity-85 m-0.5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-sm border border-secondary bg-background text-gray-200 sm:h-11 sm:w-11",
+        "opacity-85 m-0.5 flex h-7 w-7 cursor-pointer items-center justify-center rounded-sm border border-secondary bg-background text-gray-200 sm:h-11 sm:w-11",
         isMouseOver && !isPlacementComplete && `${currentShip.shipColorClass}`,
         !isValidPlacement && `cursor-not-allowed`,
         isCarrierCell && shipData.carrier.shipColorClass,
@@ -139,7 +143,7 @@ interface boardGridProps extends React.HTMLAttributes<HTMLDivElement> {}
 export default function BoardGrid({ className, ...props }: boardGridProps) {
   return (
     <div
-      className={cn("mx-auto w-fit rounded-md bg-secondary p-2", className)}
+      className={cn("mx-auto w-fit rounded-md bg-secondary p-1 sm:p-2", className)}
       {...props}
     >
       <div className="flex flex-col items-center">

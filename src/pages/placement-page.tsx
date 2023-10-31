@@ -3,12 +3,13 @@ import useStore from "@/store/use-store";
 import Header from "@/components/header";
 import ShipSelectorIcon from "@/components/ship-selector-icon";
 import BoardGrid from "@/components/board-grid";
+import Typewriter from "@/components/typewriter";
 
 function PlacementPage() {
   const shipData = useStore((state) => state.shipData);
   const currentShip = useStore((state) => state.currentShip);
 
-  let welcomeMessage: React.ReactNode;
+  let welcomeMessage: string;
 
   if (currentShip.name === "COMPLETE") {
     welcomeMessage =
@@ -20,7 +21,7 @@ function PlacementPage() {
   return (
     <div className="px-6 py-6">
       <Header />
-      <p className="mt-4 text-center text-base sm:text-lg">{welcomeMessage}</p>
+      <Typewriter text={welcomeMessage} className="mt-2" />
       <div className="mt-4 flex flex-wrap justify-center gap-x-1 gap-y-2 sm:justify-between sm:px-12 lg:justify-center lg:gap-x-12">
         <ShipSelectorIcon
           name={shipData.carrier.name}
