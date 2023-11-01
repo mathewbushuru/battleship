@@ -20,7 +20,7 @@ function WelcomePage() {
   return (
       <div
         data-testid="WelcomePage"
-        className="flex h-full flex-col justify-between space-y-4 px-6  py-16"
+        className="flex h-screen flex-col justify-between space-y-4 px-6  py-16"
       >
         <Header />
         <Blockquote

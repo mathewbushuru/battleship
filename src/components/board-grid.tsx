@@ -1,4 +1,4 @@
-import { Ship } from "lucide-react";
+import { Ship, CheckCheck } from "lucide-react";
 
 import useStore from "@/store/use-store";
 import { cn } from "@/lib/ui-utils";
@@ -89,7 +89,7 @@ function BoardCell({
   return (
     <div
       className={cn(
-        "opacity-85 m-0.5 flex h-7 w-7 cursor-pointer items-center justify-center rounded-sm border border-secondary bg-background text-gray-200 sm:h-11 sm:w-11",
+        "opacity-85 m-[1px] flex h-7 w-7 cursor-pointer items-center justify-center rounded-sm border border-secondary bg-background text-gray-200 sm:m-0.5 sm:h-11 sm:w-11",
         isMouseOver && !isPlacementComplete && `${currentShip.shipColorClass}`,
         !isValidPlacement && `cursor-not-allowed`,
         isCarrierCell && shipData.carrier.shipColorClass,
@@ -138,14 +138,68 @@ function BoardRow({ row }: { row: number }) {
   );
 }
 
+interface shipBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+  shipName: string;
+  alreadyPlaced: boolean;
+}
+
+function ShipBadge({ shipName, alreadyPlaced, className }: shipBadgeProps) {
+  return (
+    <div
+      className={cn(
+        "flex items-center gap-1 rounded-sm px-1 py-1 text-xs text-gray-200",
+        className,
+      )}
+    >
+      <p>{shipName}</p>
+      {alreadyPlaced ? (
+        <CheckCheck className="h-3 w-3" />
+      ) : (
+        <div className="w-3" />
+      )}
+    </div>
+  );
+}
+
 interface boardGridProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function BoardGrid({ className, ...props }: boardGridProps) {
+  const shipData = useStore((state) => state.shipData);
   return (
     <div
-      className={cn("mx-auto w-fit rounded-md bg-secondary p-1 sm:p-2", className)}
+      className={cn(
+        "mx-auto flex w-fit flex-col-reverse gap-2 rounded-md bg-secondary px-1 py-4 sm:px-2 sm:py-2 sm:flex-row",
+        className,
+      )}
       {...props}
     >
+      <div className="flex flex-wrap justify-center gap-2 px-2 sm:flex-col">
+        <ShipBadge
+          shipName="Carrier"
+          alreadyPlaced={shipData.carrier.alreadyPlaced}
+          className="bg-amber-500"
+        />
+        <ShipBadge
+          shipName="Battleship"
+          alreadyPlaced={shipData.battleship.alreadyPlaced}
+          className="bg-teal-500"
+        />
+        <ShipBadge
+          shipName="Destroyer"
+          alreadyPlaced={shipData.destroyer.alreadyPlaced}
+          className="bg-cyan-500"
+        />
+        <ShipBadge
+          shipName="Submarine"
+          alreadyPlaced={shipData.submarine.alreadyPlaced}
+          className="bg-indigo-500"
+        />
+        <ShipBadge
+          shipName="Patroller"
+          alreadyPlaced={shipData.patroller.alreadyPlaced}
+          className="bg-rose-500"
+        />
+      </div>
       <div className="flex flex-col items-center">
         {Array(10)
           .fill(null)

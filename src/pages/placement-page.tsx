@@ -19,7 +19,7 @@ function PlacementPage() {
   }
 
   return (
-    <div className="px-6 py-6">
+    <div className="px-6 py-6 min-h-screen">
       <Header />
       <Typewriter text={welcomeMessage} className="mt-2" />
       <div className="mt-4 flex flex-wrap justify-center gap-x-1 gap-y-2 sm:justify-between sm:px-12 lg:justify-center lg:gap-x-12">

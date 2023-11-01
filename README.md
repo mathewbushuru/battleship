@@ -18,7 +18,7 @@ In addition, I am using `Zustand` for React state management and `TailwindCSS` f
 - [x] Testing with Vitest/ TDD setup
 - [x] UI configuration - clsx, twMerge, cva, lucide icons
 - [x] Deployment to Vercel 
-- [x] Welcome page
+- [x] Start page
 - [ ] Ship placement page
 - [ ] Game page
 - [ ] Main game loop
