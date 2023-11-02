@@ -1,6 +1,6 @@
 <h1 align="center"> Battleship </h1>
 
-The main purpose of this project is to explore testing in React while creating a Battleship game. I aim to maintain 100% test coverage throughout development. I'm using `Vitest` as the unit testing framework, `JSDOM` as the running environment for the tests, and a combination of `@testing-library/react` and `@testing-library/jest-dom` for react testing utilities.
+The main purpose of this project is to explore testing in React while creating a Battleship game. I aim to achieve 100% test coverage by the end of development. I'm using `Vitest` as the unit testing framework, `JSDOM` as the running environment for the tests, and a combination of `@testing-library/react` and `@testing-library/jest-dom` for react testing utilities.
 
 In addition, I am using `Zustand` for React state management and `TailwindCSS` for styling.
 
@@ -8,21 +8,16 @@ In addition, I am using `Zustand` for React state management and `TailwindCSS` f
 
 ### Test Coverage
 
-![test-coverage](./docs/coverage1.jpg)
-![test-coverage](./docs/coverage-cmd.jpg)
+![test-coverage](./docs/coverage.jpg)
+![test-coverage](./docs/coverage-cmd1.jpg)
 
 ### Roadmap
 
-- [x] React app configuration
-- [x] Tailwind configuration
-- [x] Testing with Vitest/ TDD setup
-- [x] UI configuration - clsx, twMerge, cva, lucide icons
-- [x] Deployment to Vercel 
+- [x] App setup, styling, deployment
+- [x] TDD setup and Vitest testing config
 - [x] Start page
-- [ ] Ship placement page
-- [ ] Game page
-- [ ] Main game loop
-- [ ] Drag and drop for ships during game setup
+- [x] Ship placement page
+- [ ] Game page and gameplay loop
+- [ ] Drag and drop for ships during placement
 - [ ] Smarter computer player 
-- [ ] Enable two players local co-op 
-- [ ] Enable two players  online gameplay
+- [ ] Enable two players  online gameplay with Socket.io
