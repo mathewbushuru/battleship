@@ -9,7 +9,10 @@ In addition, I am using `Zustand` for React state management and `TailwindCSS` f
 ### Test Coverage
 
 ![test-coverage](./docs/coverage.jpg)
-![test-coverage](./docs/coverage-cmd1.jpg)
+<!-- ![test-coverage](./docs/coverage-cmd1.jpg) -->
+<p align="center">
+<img src="./docs//coverage-cmd1.jpg" width="400px" />
+</p>
 
 ### Roadmap
 
