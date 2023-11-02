@@ -36,7 +36,10 @@ function PlacementPage() {
   }
 
   return (
-    <div className="min-h-screen px-6 pb-6 pt-6 sm:pt-3">
+    <div
+      className="min-h-screen px-6 pb-6 pt-6 sm:pt-3"
+      data-testid="PlacementPage"
+    >
       <Header />
       <Typewriter text={welcomeMessage} className="mt-2" />
       <div className="mt-4 flex flex-wrap justify-center gap-x-1 gap-y-2 sm:justify-between sm:px-12 lg:justify-center lg:gap-x-12">
@@ -77,15 +80,13 @@ function PlacementPage() {
         />
       </div>
       <div className="mt-4 flex justify-center">
-        <Button size="sm" className="text-sm" onClick={handleRotateClick}>
-          {isPlacementComplete ? (
-            <span>Start game</span>
-          ) : (
-            <span>
-              Rotate ship {placementDirection === "row" ? "- X" : "- Y"}
-            </span>
-          )}
-        </Button>
+        {isPlacementComplete ? (
+          <Button size="sm" className="text-sm">Start game</Button>
+        ) : (
+          <Button size="sm" className="text-sm" onClick={handleRotateClick}>
+            Rotate ship {placementDirection === "row" ? "- X" : "- Y"}
+          </Button>
+        )}
       </div>
       <BoardGrid className="mt-4" />
     </div>
