@@ -17,7 +17,7 @@ describe("<Button />", () => {
 
     const button = result.getByRole("button");
     expect(button).toHaveClass("bg-primary");
-    expect(button).toHaveClass("h-14");
+    expect(button).toHaveClass("h-12");
   });
 
   it("applies different variant and size classes", () => {
@@ -25,7 +25,7 @@ describe("<Button />", () => {
 
     const button = result.getByRole("button");
     expect(button).toHaveClass("border");
-    expect(button).toHaveClass("h-16");
+    expect(button).toHaveClass("h-14");
   });
 
   it("handles onClick events", () => {

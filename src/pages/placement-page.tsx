@@ -4,22 +4,27 @@ import Header from "@/components/header";
 import ShipSelectorIcon from "@/components/ship-selector-icon";
 import BoardGrid from "@/components/board-grid";
 import Typewriter from "@/components/typewriter";
+import Button from "@/components/ui/button";
 
 function PlacementPage() {
   const shipData = useStore((state) => state.shipData);
   const currentShip = useStore((state) => state.currentShip);
+  const nextShipsToBePlaced = useStore((state) => state.nextShipsToBePlaced);
+
+  const isPlacementComplete =
+    nextShipsToBePlaced.length === 0 && currentShip.name === "COMPLETE";
 
   let welcomeMessage: string;
 
   if (currentShip.name === "COMPLETE") {
     welcomeMessage =
-      "Thanks lieutenant, attack formation is in place. Reorder the ships or let's enter the battle.";
+      "Thanks lieutenant, attack formation is in place. Drag the ships to reorder them or let's enter the battle...";
   } else {
     welcomeMessage = `Lieutenant, place your ${currentShip.name.toLowerCase()}...`;
   }
 
   return (
-    <div className="px-6 py-6 min-h-screen">
+    <div className="min-h-screen px-6 pb-6 pt-6 sm:pt-3">
       <Header />
       <Typewriter text={welcomeMessage} className="mt-2" />
       <div className="mt-4 flex flex-wrap justify-center gap-x-1 gap-y-2 sm:justify-between sm:px-12 lg:justify-center lg:gap-x-12">
@@ -59,7 +64,18 @@ function PlacementPage() {
           shipColorClass={shipData.patroller.shipColorClass}
         />
       </div>
-      <BoardGrid className="mt-8" />
+      <div className="mt-4 flex justify-center">
+        <Button size="sm" className="text-sm">
+          {isPlacementComplete ? (
+            <span>Start game</span>
+          ) : (
+            <span>
+              Rotate ship <span className="hidden sm:inline-block">[space]</span>{" "}
+            </span>
+          )}
+        </Button>
+      </div>
+      <BoardGrid className="mt-4" />
     </div>
   );
 }
