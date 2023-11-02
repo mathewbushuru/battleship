@@ -30,7 +30,7 @@ function PlacementPage() {
 
   if (currentShip.name === "COMPLETE") {
     welcomeMessage =
-      "Thanks lieutenant, attack formation is in place. Drag the ships to reorder them or let's enter the battle...";
+      "Thanks lieutenant, attack formation is in place. Let's enter the battle...";
   } else {
     welcomeMessage = `Lieutenant, place your ${currentShip.name.toLowerCase()}...`;
   }
