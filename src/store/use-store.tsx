@@ -33,6 +33,7 @@ type state = {
     shipColorClass: string;
     cells: number;
   }[];
+  placementDirection: "row" | "column";
 };
 
 type actions = {
@@ -42,6 +43,7 @@ type actions = {
   setNextShipsToBePlaced: (
     updatedNextShips: state["nextShipsToBePlaced"],
   ) => void;
+  setPlacementDirection: (newDirection: state["placementDirection"]) => void;
 };
 
 const useStore = create<state & actions>((set) => ({
@@ -100,6 +102,9 @@ const useStore = create<state & actions>((set) => ({
   ],
   setNextShipsToBePlaced: (updatedNextShips) =>
     set(() => ({ nextShipsToBePlaced: updatedNextShips })),
+  placementDirection: "row",
+  setPlacementDirection: (newDirection) =>
+    set(() => ({ placementDirection: newDirection })),
 }));
 
 export default useStore;

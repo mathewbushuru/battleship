@@ -23,6 +23,71 @@ function BoardCell({
   const setNextShipsToBePlaced = useStore(
     (state) => state.setNextShipsToBePlaced,
   );
+  const placementDirection = useStore((state) => state.placementDirection);
+
+  let willOverlapWithCarrierCells,
+    willOverlapWithBattleshipCells,
+    willOverlapWithDestroyerCells,
+    willOverlapWithSubmarineCells,
+    willOverlapWithPatrollerCells;
+
+  let isOccupiedCell = false;
+
+  for (let i = 0; i < currentShip.cells; i++) {
+    willOverlapWithCarrierCells = shipData.carrier.occupiedCells.some(
+      placementDirection === "row"
+        ? (el) => el[0] === row && el[1] === col + i
+        : (el) => el[0] === row + i && el[1] === col,
+    );
+    if (willOverlapWithCarrierCells) {
+      isOccupiedCell = true;
+      break;
+    }
+
+    willOverlapWithBattleshipCells = shipData.battleship.occupiedCells.some(
+      placementDirection === "row"
+        ? (el) => el[0] === row && el[1] === col + i
+        : (el) => el[0] === row + i && el[1] === col,
+    );
+    if (willOverlapWithBattleshipCells) {
+      isOccupiedCell = true;
+      break;
+    }
+
+    willOverlapWithDestroyerCells = shipData.destroyer.occupiedCells.some(
+      placementDirection === "row"
+        ? (el) => el[0] === row && el[1] === col + i
+        : (el) => el[0] === row + i && el[1] === col,
+    );
+    if (willOverlapWithDestroyerCells) {
+      isOccupiedCell = true;
+      break;
+    }
+
+    willOverlapWithSubmarineCells = shipData.submarine.occupiedCells.some(
+      placementDirection === "row"
+        ? (el) => el[0] === row && el[1] === col + i
+        : (el) => el[0] === row + i && el[1] === col,
+    );
+    if (willOverlapWithSubmarineCells) {
+      isOccupiedCell = true;
+      break;
+    }
+
+    willOverlapWithPatrollerCells = shipData.patroller.occupiedCells.some(
+      placementDirection === "row"
+        ? (el) => el[0] === row && el[1] === col + i
+        : (el) => el[0] === row + i && el[1] === col,
+    );
+    if (willOverlapWithPatrollerCells) {
+      isOccupiedCell = true;
+      break;
+    }
+  }
+
+  if (isOccupiedCell) {
+    isValidPlacement = false;
+  }
 
   const isCarrierCell = shipData.carrier.occupiedCells.some(
     (el) => el[0] === row && el[1] === col,
@@ -40,13 +105,6 @@ function BoardCell({
     (el) => el[0] === row && el[1] === col,
   );
 
-  const isPlacementComplete =
-    nextShipsToBePlaced.length === 0 && currentShip.name === "COMPLETE";
-
-  if (isPlacementComplete) {
-    isValidPlacement = false;
-  }
-
   let cellContent: React.ReactNode = " ";
 
   if (
@@ -60,6 +118,13 @@ function BoardCell({
     cellContent = <Ship className="h-4 w-4 sm:h-5 sm:w-5" />;
   }
 
+  const isPlacementComplete =
+    nextShipsToBePlaced.length === 0 && currentShip.name === "COMPLETE";
+
+  if (isPlacementComplete) {
+    isValidPlacement = false;
+  }
+
   const handleClick = () => {
     if (!isValidPlacement || isPlacementComplete) {
       return;
@@ -70,7 +135,11 @@ function BoardCell({
       currentShip.name.toLowerCase() as keyof typeof updatedData;
     const occupiedCells = [];
     for (let i = 0; i < currentShip.cells; i++) {
-      occupiedCells.push([row, col + i]);
+      if (placementDirection === "row") {
+        occupiedCells.push([row, col + i]);
+      } else {
+        occupiedCells.push([row + i, col]);
+      }
     }
     updatedData[currentShipName].occupiedCells = occupiedCells;
     updatedData[currentShipName].alreadyPlaced = true;
@@ -110,11 +179,21 @@ function BoardCell({
 function BoardRow({ row }: { row: number }) {
   const currentShip = useStore((state) => state.currentShip);
   const mouseOverCoords = useStore((state) => state.mouseOverCoords);
+  const placementDirection = useStore((state) => state.placementDirection);
+
   return (
     <div className="flex">
       {Array(10)
         .fill(null)
         .map((_, col) => {
+          const totalCoveredCells =
+            placementDirection === "row"
+              ? row === mouseOverCoords.row &&
+                col >= mouseOverCoords.col! &&
+                col < mouseOverCoords.col! + currentShip.cells
+              : col === mouseOverCoords.col &&
+                row >= mouseOverCoords.row! &&
+                row < mouseOverCoords.row! + currentShip.cells;
           return (
             <BoardCell
               key={col}
@@ -123,13 +202,14 @@ function BoardRow({ row }: { row: number }) {
               isMouseOver={
                 mouseOverCoords.col !== null &&
                 mouseOverCoords.row !== null &&
-                row === mouseOverCoords.row &&
-                col >= mouseOverCoords.col &&
-                col < mouseOverCoords.col + currentShip.cells
+                totalCoveredCells
               }
               isValidPlacement={
                 mouseOverCoords.col !== null &&
-                mouseOverCoords.col + (currentShip.cells - 1) < 10
+                mouseOverCoords.row !== null &&
+                (placementDirection === "row"
+                  ? mouseOverCoords.col + (currentShip.cells - 1) < 10
+                  : mouseOverCoords.row + (currentShip.cells - 1) < 10)
               }
             />
           );
@@ -168,7 +248,7 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
   return (
     <div
       className={cn(
-        "mx-auto flex w-fit flex-col-reverse gap-2 rounded-md bg-secondary px-1 py-4 sm:px-2 sm:py-2 sm:flex-row",
+        "mx-auto flex w-fit flex-col-reverse gap-2 rounded-md bg-secondary px-1 py-4 sm:flex-row sm:px-2 sm:py-2",
         className,
       )}
       {...props}

@@ -10,9 +10,21 @@ function PlacementPage() {
   const shipData = useStore((state) => state.shipData);
   const currentShip = useStore((state) => state.currentShip);
   const nextShipsToBePlaced = useStore((state) => state.nextShipsToBePlaced);
+  const placementDirection = useStore((state) => state.placementDirection);
+  const setPlacementDirection = useStore(
+    (state) => state.setPlacementDirection,
+  );
 
   const isPlacementComplete =
     nextShipsToBePlaced.length === 0 && currentShip.name === "COMPLETE";
+
+  const handleRotateClick = () => {
+    if (placementDirection === "row") {
+      setPlacementDirection("column");
+    } else {
+      setPlacementDirection("row");
+    }
+  };
 
   let welcomeMessage: string;
 
@@ -65,12 +77,12 @@ function PlacementPage() {
         />
       </div>
       <div className="mt-4 flex justify-center">
-        <Button size="sm" className="text-sm">
+        <Button size="sm" className="text-sm" onClick={handleRotateClick}>
           {isPlacementComplete ? (
             <span>Start game</span>
           ) : (
             <span>
-              Rotate ship <span className="hidden sm:inline-block">[space]</span>{" "}
+              Rotate ship {placementDirection === "row" ? "- X" : "- Y"}
             </span>
           )}
         </Button>
