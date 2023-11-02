@@ -7,7 +7,7 @@ export default function BoardRow({ row }: { row: number }) {
   const placementDirection = useStore((state) => state.placementDirection);
 
   return (
-    <div className="flex">
+    <div className="flex" data-testid="BoardRowComponent">
       {Array(10)
         .fill(null)
         .map((_, col) => {

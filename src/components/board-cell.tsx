@@ -170,6 +170,7 @@ export default function BoardCell({
       onMouseEnter={() => setMouseOverCoords({ row, col })}
       onMouseLeave={() => setMouseOverCoords({ row: null, col: null })}
       onClick={handleClick}
+      data-testid="BoardCellComponent"
     >
       {cellContent}
     </div>
