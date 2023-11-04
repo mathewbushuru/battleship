@@ -1,7 +1,15 @@
-import { describe, it, expect, afterEach } from "vitest";
+import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 
 import PlacementPage from "@/pages/placement-page";
+
+vi.mock("react-router-dom", async (importOrig) => {
+  const mod: any = await importOrig();
+  return {
+    ...mod,
+    useNavigate: vi.fn(),
+  };
+});
 
 describe("/placement route", () => {
   afterEach(cleanup);
