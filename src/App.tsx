@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import WelcomePage from "@/pages/welcome-page";
 import ErrorPage from "@/pages/error-page";
 import PlacementPage from "./pages/placement-page";
+import GamePlayPage from "./pages/gameplay-page";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/placement",
     element: <PlacementPage />,
+  },
+  {
+    path: "/gameplay",
+    element: <GamePlayPage />,
   },
 ]);
 

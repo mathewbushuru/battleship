@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import useStore from "@/store/use-store";
 
 import Header from "@/components/header";
@@ -7,6 +9,8 @@ import Typewriter from "@/components/typewriter";
 import Button from "@/components/ui/button";
 
 function PlacementPage() {
+  const navigate = useNavigate();
+
   const shipData = useStore((state) => state.shipData);
   const currentShip = useStore((state) => state.currentShip);
   const nextShipsToBePlaced = useStore((state) => state.nextShipsToBePlaced);
@@ -81,7 +85,13 @@ function PlacementPage() {
       </div>
       <div className="mt-4 flex justify-center">
         {isPlacementComplete ? (
-          <Button size="sm" className="text-sm">Start game</Button>
+          <Button
+            size="sm"
+            className="text-sm"
+            onClick={() => navigate("/gameplay")}
+          >
+            Start game
+          </Button>
         ) : (
           <Button size="sm" className="text-sm" onClick={handleRotateClick}>
             Rotate ship {placementDirection === "row" ? "- X" : "- Y"}
