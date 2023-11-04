@@ -3,10 +3,10 @@ import { render, cleanup } from "@testing-library/react";
 
 import BoardRow from "@/components/board-row";
 
-describe("<BoardCell />", () => {
+describe("<BoardRow />", () => {
   afterEach(cleanup);
 
-  it("renders BoardCell component without crashing", () => {
+  it("renders BoardRow component without crashing", () => {
     const result = render(
       <BoardRow
         row={0}
