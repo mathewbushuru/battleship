@@ -2,12 +2,21 @@ import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 
 import PlacementPage from "@/pages/placement-page";
+import useStore from "@/store/use-store";
 
 vi.mock("react-router-dom", async (importOrig) => {
-  const mod: any = await importOrig();
+  const actualModule: any = await importOrig();
   return {
-    ...mod,
+    ...actualModule,
     useNavigate: vi.fn(),
+  };
+});
+
+vi.mock("@/store/use-store", async (importOrig) => {
+  const useStoreActual = await importOrig<typeof useStore>();
+
+  return {
+    ...useStoreActual
   };
 });
 
