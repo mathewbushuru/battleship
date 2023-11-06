@@ -65,4 +65,34 @@ describe("/placement route", () => {
     await user.click(cell);
     expect(cell.querySelector("svg")).toBeInTheDocument();
   });
+
+  it("rotates placement direction from row to column, places all 5 ships, then changes place button to start game button, and navigates to gameplay page when start game is clicked", async () => {
+    const user = userEvent.setup();
+    const rrd = await import("react-router-dom");
+    const navigateHookMock = vi.fn();
+    rrd.useNavigate = vi.fn().mockImplementation(() => navigateHookMock);
+    const result = render(<PlacementPage />);
+    expect(
+      result.getByRole("button", { name: /rotate ship - x/i }),
+    ).toBeInTheDocument();
+    await user.click(result.getByRole("button", { name: /rotate ship - x/i }));
+    expect(
+      result.getByRole("button", { name: /rotate ship - y/i }),
+    ).toBeInTheDocument();
+    const carrierCell = result.getByTestId("Row2Col3Cell");
+    await user.click(carrierCell);
+    const battleshipCell = result.getByTestId("Row6Col0Cell");
+    await user.click(battleshipCell);
+    const destroyerCell = result.getByTestId("Row0Col5Cell");
+    await user.click(destroyerCell);
+    const submarineCell = result.getByTestId("Row3Col9Cell");
+    await user.click(submarineCell);
+    const patrollerCell = result.getByTestId("Row8Col7Cell");
+    await user.click(patrollerCell);
+    expect(
+      result.getByRole("button", { name: /start game/i }),
+    ).toBeInTheDocument();
+    await user.click(result.getByRole("button", { name: /start game/i }));
+    expect(navigateHookMock).toBeCalledWith("/gameplay");
+  });
 });
