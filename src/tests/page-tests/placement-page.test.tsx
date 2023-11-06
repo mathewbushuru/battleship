@@ -1,5 +1,6 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, cleanup, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import PlacementPage from "@/pages/placement-page";
 import useStore from "@/store/use-store";
@@ -57,8 +58,11 @@ describe("/placement route", () => {
   });
 
   it("cell has ship svg  icon after ship placement", async () => {
+    const user = userEvent.setup();
     const result = render(<PlacementPage />);
     const cell = result.getByTestId("Row5Col3Cell");
     expect(cell).toHaveTextContent("");
+    await user.click(cell);
+    expect(cell.querySelector("svg")).toBeInTheDocument();
   });
 });
