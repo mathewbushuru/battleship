@@ -10,6 +10,6 @@ describe("<BoardGrid />", () => {
     const result = render(
       <BoardGrid />,
     );
-    expect(result.getByRole('BoardGrid')).toBeInTheDocument();
+    expect(result.getByTestId('BoardGridComponent')).toBeInTheDocument();
   });
 });

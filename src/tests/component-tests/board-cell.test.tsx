@@ -15,6 +15,6 @@ describe("<BoardCell />", () => {
         isValidPlacement={false}
       />,
     );
-    expect(result.getByTestId("BoardCellComponent")).toBeInTheDocument();
+    expect(result.getByTestId("Row0Col0Cell")).toBeInTheDocument();
   });
 });

@@ -10,7 +10,7 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
   const shipData = useStore((state) => state.shipData);
   return (
     <div
-      role="BoardGrid"
+      data-testid="BoardGridComponent"
       className={cn(
         "mx-auto flex w-fit flex-col-reverse gap-2 rounded-md bg-secondary px-1 py-4 sm:flex-row sm:px-2 sm:py-2",
         className,

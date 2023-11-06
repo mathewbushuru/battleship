@@ -16,7 +16,7 @@ vi.mock("@/store/use-store", async (importOrig) => {
   const useStoreActual = await importOrig<typeof useStore>();
 
   return {
-    ...useStoreActual
+    ...useStoreActual,
   };
 });
 
@@ -48,5 +48,17 @@ describe("/placement route", () => {
     expect(rotateBtn.textContent).toBe("Rotate ship - Y");
     fireEvent.click(rotateBtn);
     expect(rotateBtn.textContent).toBe("Rotate ship - X");
+  });
+
+  it("cell is empty before ship placement", () => {
+    const result = render(<PlacementPage />);
+
+    expect(result.getByTestId("Row5Col3Cell")).toHaveTextContent("");
+  });
+
+  it("cell has ship svg  icon after ship placement", async () => {
+    const result = render(<PlacementPage />);
+    const cell = result.getByTestId("Row5Col3Cell");
+    expect(cell).toHaveTextContent("");
   });
 });

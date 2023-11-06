@@ -105,7 +105,7 @@ export default function BoardCell({
     (el) => el[0] === row && el[1] === col,
   );
 
-  let cellContent: React.ReactNode = " ";
+  let cellContent: React.ReactNode = "";
 
   if (
     isCarrierCell ||
@@ -170,7 +170,7 @@ export default function BoardCell({
       onMouseEnter={() => setMouseOverCoords({ row, col })}
       onMouseLeave={() => setMouseOverCoords({ row: null, col: null })}
       onClick={handleClick}
-      data-testid="BoardCellComponent"
+      data-testid={`Row${row}Col${col}Cell`}
     >
       {cellContent}
     </div>
