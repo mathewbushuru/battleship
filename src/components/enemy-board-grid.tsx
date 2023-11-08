@@ -1,6 +1,6 @@
 import { X} from "lucide-react";
 
-import BoardRow from "@/components/board-row";
+import EnemyBoardRow from "./enemy-board-row";
 import { useAppSelector } from "@/store/store";
 import { cn } from "@/lib/ui-utils";
 
@@ -10,7 +10,7 @@ export default function EnemyBoardGrid({
   className,
   ...props
 }: enemyBoardGridProps) {
-  const shipData = useAppSelector((state) => state.ship.shipData);
+  const shipData = useAppSelector((state) => state.enemyShip.shipData);
 
   return (
     <div
@@ -52,7 +52,7 @@ export default function EnemyBoardGrid({
         {Array(10)
           .fill(null)
           .map((_, rowIndex) => {
-            return <BoardRow key={rowIndex} row={rowIndex} />;
+            return <EnemyBoardRow key={rowIndex} row={rowIndex} />;
           })}
       </div>
     </div>
