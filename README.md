@@ -2,7 +2,7 @@
 
 The main purpose of this project is to explore testing in React while creating a Battleship game. I aim to achieve 100% test coverage by the end of development. I'm using `Vitest` as the unit testing framework, `JSDOM` as the running environment for the tests, and a combination of `@testing-library/react` and `@testing-library/jest-dom` for react testing utilities.
 
-In addition, I am using `Zustand` for React state management and `TailwindCSS` for styling.
+In addition, I am using `Zustand` for React state management in this branch and `TailwindCSS` for styling.
 
 <!-- ![progress](./docs/current-progress1.jpg) -->
 
