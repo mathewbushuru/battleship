@@ -1,6 +1,7 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { cleanup, fireEvent } from "@testing-library/react";
 
+import { render } from "@/tests/test-utils";
 import Button from "@/components/ui/button";
 
 describe("<Button />", () => {

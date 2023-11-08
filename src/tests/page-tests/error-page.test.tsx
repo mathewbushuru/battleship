@@ -1,6 +1,7 @@
 import { describe, it, vi, expect, beforeEach, afterEach } from "vitest";
-import { render, fireEvent, cleanup } from "@testing-library/react";
+import { fireEvent, cleanup } from "@testing-library/react";
 
+import { render } from "@/tests/test-utils";
 import ErrorPage from "@/pages/error-page";
 
 vi.mock("react-router-dom");

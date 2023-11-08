@@ -1,23 +1,15 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { cleanup, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { render } from "@/tests/test-utils";
 import PlacementPage from "@/pages/placement-page";
-import useStore from "@/store/use-store";
 
 vi.mock("react-router-dom", async (importOrig) => {
   const actualModule: any = await importOrig();
   return {
     ...actualModule,
     useNavigate: vi.fn(),
-  };
-});
-
-vi.mock("@/store/use-store", async (importOrig) => {
-  const useStoreActual = await importOrig<typeof useStore>();
-
-  return {
-    ...useStoreActual,
   };
 });
 

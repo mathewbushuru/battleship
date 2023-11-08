@@ -1,13 +1,14 @@
 import { CheckCheck } from "lucide-react";
 
-import useStore from "@/store/use-store";
 import BoardRow from "@/components/board-row";
+import { useAppSelector } from "@/store/store";
 import { cn } from "@/lib/ui-utils";
 
 interface boardGridProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function BoardGrid({ className, ...props }: boardGridProps) {
-  const shipData = useStore((state) => state.shipData);
+  const shipData = useAppSelector((state) => state.ship.shipData);
+
   return (
     <div
       data-testid="BoardGridComponent"

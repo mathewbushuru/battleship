@@ -1,23 +1,35 @@
 import { useNavigate } from "react-router-dom";
 
-import useStore from "@/store/use-store";
-
 import Header from "@/components/header";
 import ShipSelectorIcon from "@/components/ship-selector-icon";
 import BoardGrid from "@/components/board-grid";
 import Typewriter from "@/components/typewriter";
 import Button from "@/components/ui/button";
 
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import {
+  setPlacementDirectionAction,
+  type ShipState,
+} from "@/store/ship-slice";
+
 function PlacementPage() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const shipData = useStore((state) => state.shipData);
-  const currentShip = useStore((state) => state.currentShip);
-  const nextShipsToBePlaced = useStore((state) => state.nextShipsToBePlaced);
-  const placementDirection = useStore((state) => state.placementDirection);
-  const setPlacementDirection = useStore(
-    (state) => state.setPlacementDirection,
+  const shipData = useAppSelector((state) => state.ship.shipData);
+  const currentShip = useAppSelector((state) => state.ship.currentShip);
+  const nextShipsToBePlaced = useAppSelector(
+    (state) => state.ship.nextShipsToBePlaced,
   );
+  const placementDirection = useAppSelector(
+    (state) => state.ship.placementDirection,
+  );
+
+  const setPlacementDirection: (
+    newDirection: ShipState["placementDirection"],
+  ) => void = (newDirection) => {
+    dispatch(setPlacementDirectionAction(newDirection));
+  };
 
   const isPlacementComplete =
     nextShipsToBePlaced.length === 0 && currentShip.name === "COMPLETE";

@@ -1,6 +1,13 @@
 import { Ship } from "lucide-react";
 
-import useStore from "@/store/use-store";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import {
+  type ShipState,
+  setCurrentShipAction,
+  setMouseOverCoordsAction,
+  setShipDataAction,
+  setNextShipsToBePlacedAction,
+} from "@/store/ship-slice";
 import { cn } from "@/lib/ui-utils";
 
 export default function BoardCell({
@@ -14,16 +21,37 @@ export default function BoardCell({
   isMouseOver: boolean;
   isValidPlacement: boolean;
 }) {
-  const currentShip = useStore((state) => state.currentShip);
-  const setCurrentShip = useStore((state) => state.setCurrentShip);
-  const setMouseOverCoords = useStore((state) => state.setMouseOverCoords);
-  const shipData = useStore((state) => state.shipData);
-  const setShipData = useStore((state) => state.setShipData);
-  const nextShipsToBePlaced = useStore((state) => state.nextShipsToBePlaced);
-  const setNextShipsToBePlaced = useStore(
-    (state) => state.setNextShipsToBePlaced,
+  const dispatch = useAppDispatch();
+
+  const currentShip = useAppSelector((state) => state.ship.currentShip);
+  const shipData = useAppSelector((state) => state.ship.shipData);
+  const nextShipsToBePlaced = useAppSelector(
+    (state) => state.ship.nextShipsToBePlaced,
   );
-  const placementDirection = useStore((state) => state.placementDirection);
+  const placementDirection = useAppSelector(
+    (state) => state.ship.placementDirection,
+  );
+
+  const setCurrentShip: (nextShip: ShipState["currentShip"]) => void = (
+    nextShip,
+  ) => {
+    dispatch(setCurrentShipAction(nextShip));
+  };
+  const setMouseOverCoords: (
+    newCoords: ShipState["mouseOverCoords"],
+  ) => void = (newCoords) => {
+    dispatch(setMouseOverCoordsAction(newCoords));
+  };
+  const setShipData: (updatedShipData: ShipState["shipData"]) => void = (
+    updatedShipData,
+  ) => {
+    dispatch(setShipDataAction(updatedShipData));
+  };
+  const setNextShipsToBePlaced: (
+    updatedNextShips: ShipState["nextShipsToBePlaced"],
+  ) => void = (updatedNextShips) => {
+    dispatch(setNextShipsToBePlacedAction(updatedNextShips));
+  };
 
   let willOverlapWithCarrierCells,
     willOverlapWithBattleshipCells,
@@ -130,9 +158,10 @@ export default function BoardCell({
       return;
     }
 
-    const updatedData = { ...shipData };
+    // const updatedData = { ...shipData };
+    const updatedData = JSON.parse(JSON.stringify(shipData));
     const currentShipName =
-      currentShip.name.toLowerCase() as keyof typeof updatedData;
+      currentShip.name.toLowerCase() as keyof typeof shipData;
     const occupiedCells = [];
     for (let i = 0; i < currentShip.cells; i++) {
       if (placementDirection === "row") {

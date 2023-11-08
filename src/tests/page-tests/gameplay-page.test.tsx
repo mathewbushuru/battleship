@@ -1,6 +1,7 @@
 import { describe, it, expect, afterEach } from "vitest";
-import { cleanup, render } from "@testing-library/react";
+import { cleanup } from "@testing-library/react";
 
+import { render } from "@/tests/test-utils";
 import GamePlayPage from "@/pages/gameplay-page";
 
 describe("/gameplay route", () => {

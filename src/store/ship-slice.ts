@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { type ClassValue } from "clsx";
 
 interface currentShipType {
@@ -15,7 +15,7 @@ interface shipDataType {
   alreadyPlaced: boolean;
 }
 
-type state = {
+export interface ShipState {
   currentShip: currentShipType;
   shipData: {
     carrier: shipDataType;
@@ -34,22 +34,10 @@ type state = {
     cells: number;
   }[];
   placementDirection: "row" | "column";
-};
+}
 
-type actions = {
-  setCurrentShip: (nextShip: currentShipType) => void;
-  setShipData: (updatedShipData: state["shipData"]) => void;
-  setMouseOverCoords: (newCoords: state["mouseOverCoords"]) => void;
-  setNextShipsToBePlaced: (
-    updatedNextShips: state["nextShipsToBePlaced"],
-  ) => void;
-  setPlacementDirection: (newDirection: state["placementDirection"]) => void;
-};
-
-const useStore = create<state & actions>((set) => ({
+const initialState: ShipState = {
   currentShip: { name: "Carrier", shipColorClass: "bg-amber-500", cells: 5 },
-  setCurrentShip: (nextShip: currentShipType) =>
-    set(() => ({ currentShip: nextShip })),
   shipData: {
     carrier: {
       name: "Carrier",
@@ -87,25 +75,59 @@ const useStore = create<state & actions>((set) => ({
       alreadyPlaced: false,
     },
   },
-  setShipData: (updatedShipData) => set(() => ({ shipData: updatedShipData })),
   mouseOverCoords: {
     row: null,
     col: null,
   },
-  setMouseOverCoords: (newCoords) =>
-    set(() => ({ mouseOverCoords: newCoords })),
   nextShipsToBePlaced: [
     { name: "Battleship", shipColorClass: "bg-teal-500", cells: 4 },
     { name: "Destroyer", shipColorClass: "bg-cyan-500", cells: 3 },
     { name: "Submarine", shipColorClass: "bg-indigo-500", cells: 3 },
     { name: "Patroller", shipColorClass: "bg-rose-500", cells: 2 },
   ],
-  setNextShipsToBePlaced: (updatedNextShips) =>
-    set(() => ({ nextShipsToBePlaced: updatedNextShips })),
   placementDirection: "row",
-  setPlacementDirection: (newDirection) =>
-    set(() => ({ placementDirection: newDirection })),
-}));
+};
 
-export default useStore;
-export { type shipDataType };
+export const shipSlice = createSlice({
+  name: "ShipState",
+  initialState,
+  reducers: {
+    setCurrentShipAction: (state, action: PayloadAction<any>) => {
+      state.currentShip = action.payload;
+    },
+    setShipDataAction: (
+      state,
+      action: PayloadAction<ShipState["shipData"]>,
+    ) => {
+      state.shipData = action.payload;
+    },
+    setMouseOverCoordsAction: (
+      state,
+      action: PayloadAction<ShipState["mouseOverCoords"]>,
+    ) => {
+      state.mouseOverCoords = action.payload;
+    },
+    setNextShipsToBePlacedAction: (
+      state,
+      action: PayloadAction<ShipState["nextShipsToBePlaced"]>,
+    ) => {
+      state.nextShipsToBePlaced = action.payload;
+    },
+    setPlacementDirectionAction: (
+      state,
+      action: PayloadAction<ShipState["placementDirection"]>,
+    ) => {
+      state.placementDirection = action.payload;
+    },
+  },
+});
+
+export const {
+  setCurrentShipAction,
+  setShipDataAction,
+  setMouseOverCoordsAction,
+  setNextShipsToBePlacedAction,
+  setPlacementDirectionAction,
+} = shipSlice.actions;
+
+export default shipSlice.reducer;
