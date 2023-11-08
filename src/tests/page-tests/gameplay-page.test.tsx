@@ -1,8 +1,16 @@
-import { describe, it, expect, afterEach } from "vitest";
+import { describe, it, expect, afterEach, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
 
 import { render } from "@/tests/test-utils";
 import GamePlayPage from "@/pages/gameplay-page";
+
+vi.mock("react-router-dom", async (importOriginal) => {
+  const actualModule: any = await importOriginal();
+  return {
+    ...actualModule,
+    useNavigate: vi.fn().mockImplementation(() => vi.fn()),
+  };
+});
 
 describe("/gameplay route", () => {
   afterEach(cleanup);

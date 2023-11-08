@@ -88,8 +88,8 @@ const initialState: ShipState = {
   placementDirection: "row",
 };
 
-export const shipSlice = createSlice({
-  name: "ShipState",
+export const enemyShipSlice = createSlice({
+  name: "EnemyShipState",
   initialState,
   reducers: {
     setCurrentShipAction: (state, action: PayloadAction<any>) => {
@@ -128,8 +128,8 @@ export const {
   setMouseOverCoordsAction,
   setNextShipsToBePlacedAction,
   setPlacementDirectionAction,
-} = shipSlice.actions;
+} = enemyShipSlice.actions;
 
-const shipSliceReducer = shipSlice.reducer;
+const enemyShipReducer = enemyShipSlice.reducer;
 
-export default shipSliceReducer;
+export default enemyShipReducer;

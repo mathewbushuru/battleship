@@ -6,10 +6,12 @@ import {
 } from "react-redux";
 
 import shipReducer from "@/store/ship-slice";
+import enemyShipReducer from "@/store/enemy-ship-slice";
 
 export const store = configureStore({
   reducer: {
     ship: shipReducer,
+    enemyShip: enemyShipReducer
   },
 });
 
