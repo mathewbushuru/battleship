@@ -1,7 +1,8 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { cleanup, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { render } from "@/tests/test-utils";
 import PlacementPage from "@/pages/placement-page";
 import useStore from "@/store/use-store";
 

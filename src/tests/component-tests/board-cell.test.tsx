@@ -1,6 +1,7 @@
 import { describe, it, expect, afterEach } from "vitest";
-import { render, cleanup } from "@testing-library/react";
+import { cleanup } from "@testing-library/react";
 
+import { render } from "@/tests/test-utils";
 import BoardCell from "@/components/board-cell";
 
 describe("<BoardCell />", () => {
