@@ -36,7 +36,7 @@ function GamePlayPage() {
         text="Awaiting your orders, Lieutenant..."
         className="mt-2 lg:mt-4"
       />
-      <div className="mt-4 flex flex-col-reverse gap-4 lg:flex-row lg:justify-around">
+      <div className="mt-4 flex flex-col-reverse gap-4 xl:flex-row xl:justify-around">
         <div className="">
           <p className="text-center text-base font-extrabold uppercase tracking-wider text-secondary sm:text-lg lg:text-xl">
             Friendly waters
