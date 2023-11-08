@@ -8,11 +8,11 @@ In addition, I am using `Redux` for React state management and `TailwindCSS` for
 
 ### Test Coverage
 
-`1138 / 1143 lines of code being tested`
+`1126 / 1126 lines of code being tested`
 
-![test-coverage](./docs/coverage3.jpg)
+![test-coverage](./docs/coverage4.jpg)
 <p align="center">
-<img src="./docs//coverage-cmd3.jpg" width="400px" />
+<img src="./docs//coverage-cmd4.jpg" width="450px" />
 </p>
 
 ### Roadmap
