@@ -92,26 +92,28 @@ export const shipSlice = createSlice({
   name: "ShipState",
   initialState,
   reducers: {
-    // [ ] Typescript typing of payload
-    setCurrentShip: (state, action: PayloadAction<any>) => {
+    setCurrentShipAction: (state, action: PayloadAction<any>) => {
       state.currentShip = action.payload;
     },
-    setShipData: (state, action: PayloadAction<ShipState["shipData"]>) => {
+    setShipDataAction: (
+      state,
+      action: PayloadAction<ShipState["shipData"]>,
+    ) => {
       state.shipData = action.payload;
     },
-    setMouseOverCoords: (
+    setMouseOverCoordsAction: (
       state,
       action: PayloadAction<ShipState["mouseOverCoords"]>,
     ) => {
       state.mouseOverCoords = action.payload;
     },
-    setNextShipsToBePlaced: (
+    setNextShipsToBePlacedAction: (
       state,
       action: PayloadAction<ShipState["nextShipsToBePlaced"]>,
     ) => {
       state.nextShipsToBePlaced = action.payload;
     },
-    setPlacementDirection: (
+    setPlacementDirectionAction: (
       state,
       action: PayloadAction<ShipState["placementDirection"]>,
     ) => {
@@ -121,11 +123,11 @@ export const shipSlice = createSlice({
 });
 
 export const {
-  setCurrentShip,
-  setShipData,
-  setMouseOverCoords,
-  setNextShipsToBePlaced,
-  setPlacementDirection,
+  setCurrentShipAction,
+  setShipDataAction,
+  setMouseOverCoordsAction,
+  setNextShipsToBePlacedAction,
+  setPlacementDirectionAction,
 } = shipSlice.actions;
 
 export default shipSlice.reducer;

@@ -1,36 +1,30 @@
 import { useNavigate } from "react-router-dom";
 
-// import useStore from "@/store/use-store";
-import { useAppDispatch, useAppSelector } from "@/store/store";
-
 import Header from "@/components/header";
 import ShipSelectorIcon from "@/components/ship-selector-icon";
 import BoardGrid from "@/components/board-grid";
 import Typewriter from "@/components/typewriter";
 import Button from "@/components/ui/button";
 
-import { setPlacementDirection as setPlacementDirectionAction } from "@/store/ship-slice";
-import { ShipState } from "@/store/ship-slice";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import {
+  setPlacementDirectionAction,
+  type ShipState,
+} from "@/store/ship-slice";
 
 function PlacementPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // const shipData = useStore((state) => state.shipData);
   const shipData = useAppSelector((state) => state.ship.shipData);
-  // const currentShip = useStore((state) => state.currentShip);
   const currentShip = useAppSelector((state) => state.ship.currentShip);
-  // const nextShipsToBePlaced = useStore((state) => state.nextShipsToBePlaced);
   const nextShipsToBePlaced = useAppSelector(
     (state) => state.ship.nextShipsToBePlaced,
   );
-  // const placementDirection = useStore((state) => state.placementDirection);
   const placementDirection = useAppSelector(
     (state) => state.ship.placementDirection,
   );
-  // const setPlacementDirection = useStore(
-  //   (state) => state.setPlacementDirection,
-  // );
+
   const setPlacementDirection: (
     newDirection: ShipState["placementDirection"],
   ) => void = (newDirection) => {

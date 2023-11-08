@@ -10,7 +10,7 @@ import { type RootState, type AppStore } from "@/store/store";
 import shipReducer from "@/store/ship-slice";
 
 // type interface that extends default options of Render from RTL
-// and allow others eg initialState, store
+// and allow others ie initialState, store
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: PreloadedState<RootState>;
   store?: AppStore;
