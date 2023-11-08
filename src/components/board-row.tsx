@@ -1,10 +1,16 @@
-import useStore from "@/store/use-store";
+// import useStore from "@/store/use-store";
+import { useAppSelector } from "@/store/store";
 import BoardCell from "@/components/board-cell";
 
 export default function BoardRow({ row }: { row: number }) {
-  const currentShip = useStore((state) => state.currentShip);
-  const mouseOverCoords = useStore((state) => state.mouseOverCoords);
-  const placementDirection = useStore((state) => state.placementDirection);
+  // const currentShip = useStore((state) => state.currentShip);
+  const currentShip = useAppSelector((state) => state.ship.currentShip);
+  // const mouseOverCoords = useStore((state) => state.mouseOverCoords);
+  const mouseOverCoords = useAppSelector(state => state.ship.mouseOverCoords);
+  // const placementDirection = useStore((state) => state.placementDirection);
+  const placementDirection = useAppSelector(
+    (state) => state.ship.placementDirection,
+  );
 
   return (
     <div className="flex" data-testid="BoardRowComponent">

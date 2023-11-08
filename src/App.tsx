@@ -1,9 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
 
 import WelcomePage from "@/pages/welcome-page";
 import ErrorPage from "@/pages/error-page";
-import PlacementPage from "./pages/placement-page";
-import GamePlayPage from "./pages/gameplay-page";
+import PlacementPage from "@/pages/placement-page";
+import GamePlayPage from "@/pages/gameplay-page";
+
+import { store } from "@/store/store";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +27,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div data-testid="App" className="bg-background text-primary">
-      <RouterProvider router={router} />
+      <ReduxProvider store={store}>
+        <RouterProvider router={router} />
+      </ReduxProvider>
     </div>
   );
 }
