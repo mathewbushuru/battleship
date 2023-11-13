@@ -1,6 +1,5 @@
-import { CheckCheck } from "lucide-react";
-
 import BoardRow from "@/components/board-row";
+import ShipBoardBadge from "@/components/ship-board-badge";
 import { useAppSelector } from "@/store/store";
 import { cn } from "@/lib/ui-utils";
 
@@ -19,27 +18,27 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
       {...props}
     >
       <div className="flex flex-wrap justify-center gap-2 px-2 sm:flex-col">
-        <ShipBadge
+        <ShipBoardBadge
           shipName="Carrier"
           alreadyPlaced={shipData.carrier.alreadyPlaced}
           className="bg-amber-500"
         />
-        <ShipBadge
+        <ShipBoardBadge
           shipName="Battleship"
           alreadyPlaced={shipData.battleship.alreadyPlaced}
           className="bg-teal-500"
         />
-        <ShipBadge
+        <ShipBoardBadge
           shipName="Destroyer"
           alreadyPlaced={shipData.destroyer.alreadyPlaced}
           className="bg-cyan-500"
         />
-        <ShipBadge
+        <ShipBoardBadge
           shipName="Submarine"
           alreadyPlaced={shipData.submarine.alreadyPlaced}
           className="bg-indigo-500"
         />
-        <ShipBadge
+        <ShipBoardBadge
           shipName="Patroller"
           alreadyPlaced={shipData.patroller.alreadyPlaced}
           className="bg-rose-500"
@@ -52,29 +51,6 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
             return <BoardRow key={rowIndex} row={rowIndex} />;
           })}
       </div>
-    </div>
-  );
-}
-
-interface shipBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  shipName: string;
-  alreadyPlaced: boolean;
-}
-
-function ShipBadge({ shipName, alreadyPlaced, className }: shipBadgeProps) {
-  return (
-    <div
-      className={cn(
-        "flex items-center gap-1 rounded-sm px-1 py-1 text-xs text-gray-200",
-        className,
-      )}
-    >
-      <p>{shipName}</p>
-      {alreadyPlaced ? (
-        <CheckCheck className="h-3 w-3" />
-      ) : (
-        <div className="w-3" />
-      )}
     </div>
   );
 }

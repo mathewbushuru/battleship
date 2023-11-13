@@ -19,4 +19,6 @@ describe("/gameplay route", () => {
     const result = render(<GamePlayPage />);
     expect(result.getByTestId("GameplayPage")).toBeInTheDocument();
   });
+
+  it.todo("it redirects to placement route if page is directly visited before placement")
 });

@@ -20,9 +20,9 @@ function GamePlayPage() {
     nextFriendlyShipsToBePlaced.length === 0 &&
     currentFriendlyShip.name === "COMPLETE";
 
-    useEffect(() => {
-    if (!isFriendlyPlacementComplete){
-      navigate("/placement")
+  useEffect(() => {
+    if (!isFriendlyPlacementComplete) {
+      navigate("/placement");
     }
   }, [isFriendlyPlacementComplete]);
 
