@@ -13,6 +13,7 @@ interface shipDataType {
   numOfCells: number;
   occupiedCells: number[][];
   alreadyPlaced: boolean;
+  alreadySunk: boolean;
 }
 
 export interface ShipState {
@@ -45,6 +46,7 @@ const initialState: ShipState = {
       numOfCells: 5,
       occupiedCells: [],
       alreadyPlaced: false,
+      alreadySunk: false,
     },
     battleship: {
       name: "Battleship",
@@ -52,6 +54,7 @@ const initialState: ShipState = {
       numOfCells: 4,
       occupiedCells: [],
       alreadyPlaced: false,
+      alreadySunk: false,
     },
     destroyer: {
       name: "Destroyer",
@@ -59,6 +62,7 @@ const initialState: ShipState = {
       numOfCells: 3,
       occupiedCells: [],
       alreadyPlaced: false,
+      alreadySunk: false,
     },
     submarine: {
       name: "Submarine",
@@ -66,6 +70,7 @@ const initialState: ShipState = {
       numOfCells: 3,
       occupiedCells: [],
       alreadyPlaced: false,
+      alreadySunk: false,
     },
     patroller: {
       name: "Patroller",
@@ -73,6 +78,7 @@ const initialState: ShipState = {
       numOfCells: 2,
       occupiedCells: [],
       alreadyPlaced: false,
+      alreadySunk: false,
     },
   },
   mouseOverCoords: {

@@ -18,29 +18,34 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
       {...props}
     >
       <div className="flex flex-wrap justify-center gap-2 px-2 sm:flex-col">
-        <ShipBoardBadge
+      <ShipBoardBadge
           shipName="Carrier"
           alreadyPlaced={shipData.carrier.alreadyPlaced}
+          alreadySunk={shipData.carrier.alreadySunk}
           className="bg-amber-500"
         />
         <ShipBoardBadge
           shipName="Battleship"
           alreadyPlaced={shipData.battleship.alreadyPlaced}
+          alreadySunk={shipData.battleship.alreadySunk}
           className="bg-teal-500"
         />
         <ShipBoardBadge
           shipName="Destroyer"
           alreadyPlaced={shipData.destroyer.alreadyPlaced}
+          alreadySunk={shipData.destroyer.alreadySunk}
           className="bg-cyan-500"
         />
         <ShipBoardBadge
           shipName="Submarine"
           alreadyPlaced={shipData.submarine.alreadyPlaced}
+          alreadySunk={shipData.submarine.alreadySunk}
           className="bg-indigo-500"
         />
         <ShipBoardBadge
           shipName="Patroller"
           alreadyPlaced={shipData.patroller.alreadyPlaced}
+          alreadySunk={shipData.patroller.alreadySunk}
           className="bg-rose-500"
         />
       </div>

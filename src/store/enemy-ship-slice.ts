@@ -13,6 +13,7 @@ interface shipDataType {
   numOfCells: number;
   occupiedCells: number[][];
   alreadyPlaced: boolean;
+  alreadySunk: boolean;
 }
 
 export interface ShipState {
@@ -45,12 +46,14 @@ const initialState: ShipState = {
       numOfCells: 5,
       occupiedCells: [],
       alreadyPlaced: false,
+      alreadySunk: false,
     },
     battleship: {
       name: "Battleship",
       shipColorClass: "bg-teal-500",
       numOfCells: 4,
       occupiedCells: [],
+      alreadySunk: false,
       alreadyPlaced: false,
     },
     destroyer: {
@@ -58,6 +61,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-cyan-500",
       numOfCells: 3,
       occupiedCells: [],
+      alreadySunk: false,
       alreadyPlaced: false,
     },
     submarine: {
@@ -65,6 +69,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-indigo-500",
       numOfCells: 3,
       occupiedCells: [],
+      alreadySunk: false,
       alreadyPlaced: false,
     },
     patroller: {
@@ -72,6 +77,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-rose-500",
       numOfCells: 2,
       occupiedCells: [],
+      alreadySunk: false,
       alreadyPlaced: false,
     },
   },
