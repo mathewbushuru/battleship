@@ -5,6 +5,7 @@ import EnemyBoardRow from "./enemy-board-row";
 import { useAppSelector, useAppDispatch } from "@/store/store";
 import { type ShipState, setShipDataAction } from "@/store/enemy-ship-slice";
 import { cn } from "@/lib/ui-utils";
+import { getRandomInt } from "@/lib/game-utils";
 
 interface enemyBoardGridProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -30,8 +31,8 @@ export default function EnemyBoardGrid({
     const allEnemyCells: number[][] = [];
     let row: number, col: number;
 
-    row = Math.floor(Math.random() * 10);
-    col = Math.floor(Math.random() * 6);
+    row = getRandomInt(9);
+    col = getRandomInt(6);
     const enemyCarrierCells = [
       [row, col],
       [row, col + 1],
@@ -43,8 +44,8 @@ export default function EnemyBoardGrid({
     updatedShipData.carrier.occupiedCells = enemyCarrierCells;
     updatedShipData.carrier.alreadyPlaced = true;
 
-    row = Math.floor(Math.random() * 10);
-    col = Math.floor(Math.random() * 7);
+    row = getRandomInt(10);
+    col = getRandomInt(7);
     while (
       allEnemyCells.some((el) => {
         return (
@@ -55,8 +56,8 @@ export default function EnemyBoardGrid({
         );
       })
     ) {
-      row = Math.floor(Math.random() * 10);
-      col = Math.floor(Math.random() * 7);
+      row = getRandomInt(10);
+      col = getRandomInt(7);
     }
     const enemyBattleshipCells = [
       [row, col],
@@ -68,8 +69,8 @@ export default function EnemyBoardGrid({
     updatedShipData.battleship.occupiedCells = enemyBattleshipCells;
     updatedShipData.battleship.alreadyPlaced = true;
 
-    row = Math.floor(Math.random() * 10);
-    col = Math.floor(Math.random() * 8);
+    row = getRandomInt(10);
+    col = getRandomInt(8);
     while (
       allEnemyCells.some((el) => {
         return (
@@ -79,8 +80,8 @@ export default function EnemyBoardGrid({
         );
       })
     ) {
-      row = Math.floor(Math.random() * 10);
-      col = Math.floor(Math.random() * 7);
+      row = getRandomInt(10);
+      col = getRandomInt(8);
     }
     const enemyDestroyerCells = [
       [row, col],
@@ -91,8 +92,8 @@ export default function EnemyBoardGrid({
     updatedShipData.destroyer.occupiedCells = enemyDestroyerCells;
     updatedShipData.destroyer.alreadyPlaced = true;
 
-    row = Math.floor(Math.random() * 10);
-    col = Math.floor(Math.random() * 8);
+    row = getRandomInt(10);
+    col = getRandomInt(8);
     while (
       allEnemyCells.some((el) => {
         return (
@@ -102,8 +103,8 @@ export default function EnemyBoardGrid({
         );
       })
     ) {
-      row = Math.floor(Math.random() * 10);
-      col = Math.floor(Math.random() * 7);
+      row = getRandomInt(10);
+      col = getRandomInt(8);
     }
     const enemySubmarineCells = [
       [row, col],
@@ -114,8 +115,8 @@ export default function EnemyBoardGrid({
     updatedShipData.submarine.occupiedCells = enemySubmarineCells;
     updatedShipData.submarine.alreadyPlaced = true;
 
-    row = Math.floor(Math.random() * 10);
-    col = Math.floor(Math.random() * 9);
+    row = getRandomInt(10);
+    col = getRandomInt(9);
     while (
       allEnemyCells.some((el) => {
         return (
@@ -124,8 +125,8 @@ export default function EnemyBoardGrid({
         );
       })
     ) {
-      row = Math.floor(Math.random() * 10);
-      col = Math.floor(Math.random() * 7);
+      row = getRandomInt(10);
+      col = getRandomInt(9);
     }
     const enemyPatrollerCells = [
       [row, col],
