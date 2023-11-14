@@ -248,4 +248,6 @@ describe("/placement route", () => {
     await user.click(result.getByRole("button", { name: /start game/i }));
     expect(navigateHookMock).toBeCalledWith("/gameplay");
   });
+
+  it.todo("places ships automatically");
 });

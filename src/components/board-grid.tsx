@@ -5,7 +5,12 @@ import BoardRow from "@/components/board-row";
 import ShipBoardBadge from "@/components/ship-board-badge";
 import Button from "@/components/ui/button";
 import { useAppSelector, useAppDispatch } from "@/store/store";
-import { setShipDataAction, type ShipState } from "@/store/ship-slice";
+import {
+  setShipDataAction,
+  setCurrentShipAction,
+  setNextShipsToBePlacedAction,
+  type ShipState,
+} from "@/store/ship-slice";
 import { placeShipsAutomatically } from "@/lib/game-utils";
 import { cn } from "@/lib/ui-utils";
 
@@ -18,6 +23,14 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
 
   const setShipData = (updatedShipData: ShipState["shipData"]) => {
     dispatch(setShipDataAction(updatedShipData));
+  };
+  const setCurrentShip = (nextShip: ShipState["currentShip"]) => {
+    dispatch(setCurrentShipAction(nextShip));
+  };
+  const setNextShipsToBePlaced = (
+    updatedNextShips: ShipState["nextShipsToBePlaced"],
+  ) => {
+    dispatch(setNextShipsToBePlacedAction(updatedNextShips));
   };
 
   const handleRandomizeShips = () => {
@@ -42,6 +55,8 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
     updatedShipData.patroller.occupiedCells = patrollerCells;
     updatedShipData.patroller.alreadyPlaced = true;
     setShipData(updatedShipData);
+    setCurrentShip({ name: "COMPLETE", shipColorClass: "", cells: 0 });
+    setNextShipsToBePlaced([]);
   };
 
   return (

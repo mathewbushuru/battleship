@@ -32,24 +32,18 @@ export default function BoardCell({
     (state) => state.ship.placementDirection,
   );
 
-  const setCurrentShip: (nextShip: ShipState["currentShip"]) => void = (
-    nextShip,
-  ) => {
+  const setCurrentShip = (nextShip: ShipState["currentShip"]) => {
     dispatch(setCurrentShipAction(nextShip));
   };
-  const setMouseOverCoords: (
-    newCoords: ShipState["mouseOverCoords"],
-  ) => void = (newCoords) => {
+  const setMouseOverCoords = (newCoords: ShipState["mouseOverCoords"]) => {
     dispatch(setMouseOverCoordsAction(newCoords));
   };
-  const setShipData: (updatedShipData: ShipState["shipData"]) => void = (
-    updatedShipData,
-  ) => {
+  const setShipData = (updatedShipData: ShipState["shipData"]) => {
     dispatch(setShipDataAction(updatedShipData));
   };
-  const setNextShipsToBePlaced: (
+  const setNextShipsToBePlaced = (
     updatedNextShips: ShipState["nextShipsToBePlaced"],
-  ) => void = (updatedNextShips) => {
+  ) => {
     dispatch(setNextShipsToBePlacedAction(updatedNextShips));
   };
 
