@@ -1,4 +1,5 @@
-import ShipBoardBadge from "./ship-board-badge";
+import ShipBoardBadge from "@/components/ship-board-badge";
+import EnemyBoardRow from "./enemy-board-row";
 import { useAppSelector } from "@/store/store";
 import { cn } from "@/lib/ui-utils";
 
@@ -51,7 +52,13 @@ export default function EnemyBoardGrid({
           className="bg-rose-500"
         />
       </div>
-      EnemyBoardGrid
+      <div className="flex flex-col items-center">
+        {Array(10)
+          .fill(null)
+          .map((_, rowIndex) => {
+            return <EnemyBoardRow key={rowIndex} row={rowIndex} />;
+          })}
+      </div>
     </div>
   );
 }
