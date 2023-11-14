@@ -1,12 +1,48 @@
+import { useLocation } from "react-router-dom";
+import { Shuffle } from "lucide-react";
+
 import BoardRow from "@/components/board-row";
 import ShipBoardBadge from "@/components/ship-board-badge";
-import { useAppSelector } from "@/store/store";
+import Button from "@/components/ui/button";
+import { useAppSelector, useAppDispatch } from "@/store/store";
+import { setShipDataAction, type ShipState } from "@/store/ship-slice";
+import { placeShipsAutomatically } from "@/lib/game-utils";
 import { cn } from "@/lib/ui-utils";
 
 interface boardGridProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function BoardGrid({ className, ...props }: boardGridProps) {
+  const location = useLocation();
+  const dispatch = useAppDispatch();
   const shipData = useAppSelector((state) => state.ship.shipData);
+
+  const setShipData = (updatedShipData: ShipState["shipData"]) => {
+    dispatch(setShipDataAction(updatedShipData));
+  };
+
+  const handleRandomizeShips = () => {
+    const updatedShipData = JSON.parse(
+      JSON.stringify(shipData),
+    ) as ShipState["shipData"];
+    const {
+      carrierCells,
+      battleshipCells,
+      destroyerCells,
+      submarineCells,
+      patrollerCells,
+    } = placeShipsAutomatically();
+    updatedShipData.carrier.occupiedCells = carrierCells;
+    updatedShipData.carrier.alreadyPlaced = true;
+    updatedShipData.battleship.occupiedCells = battleshipCells;
+    updatedShipData.battleship.alreadyPlaced = true;
+    updatedShipData.destroyer.occupiedCells = destroyerCells;
+    updatedShipData.destroyer.alreadyPlaced = true;
+    updatedShipData.submarine.occupiedCells = submarineCells;
+    updatedShipData.submarine.alreadyPlaced = true;
+    updatedShipData.patroller.occupiedCells = patrollerCells;
+    updatedShipData.patroller.alreadyPlaced = true;
+    setShipData(updatedShipData);
+  };
 
   return (
     <div
@@ -17,8 +53,18 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
       )}
       {...props}
     >
-      <div className="flex flex-wrap justify-center gap-2 px-2 sm:flex-col">
-      <ShipBoardBadge
+      {location.pathname === "/placement" && (
+        <Button
+          size="xs"
+          className="self-center font-normal sm:hidden"
+          onClick={handleRandomizeShips}
+        >
+          Randomise
+          <Shuffle className="ml-1 h-3 w-3" />
+        </Button>
+      )}
+      <div className="flex flex-wrap justify-center gap-2 px-2 sm:flex-col sm:py-4">
+        <ShipBoardBadge
           shipName="Carrier"
           alreadyPlaced={shipData.carrier.alreadyPlaced}
           alreadySunk={shipData.carrier.alreadySunk}
@@ -48,6 +94,20 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
           alreadySunk={shipData.patroller.alreadySunk}
           className="bg-rose-500"
         />
+
+        {location.pathname === "/placement" && (
+          <>
+            <div className="hidden flex-1 sm:flex" />
+            <Button
+              size="xs"
+              className="hidden gap-1 self-center font-normal uppercase sm:flex"
+              onClick={handleRandomizeShips}
+            >
+              Randomize
+              <Shuffle className="h-3 w-3" />
+            </Button>
+          </>
+        )}
       </div>
       <div className="flex flex-col items-center">
         {Array(10)

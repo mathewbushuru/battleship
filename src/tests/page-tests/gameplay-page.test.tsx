@@ -9,6 +9,7 @@ vi.mock("react-router-dom", async (importOriginal) => {
   return {
     ...actualModule,
     useNavigate: vi.fn().mockImplementation(() => vi.fn()),
+    useLocation: vi.fn().mockReturnValue({pathname: "/gameplay"}),
   };
 });
 

@@ -10,6 +10,7 @@ vi.mock("react-router-dom", async (importOrig) => {
   return {
     ...actualModule,
     useNavigate: vi.fn(),
+    useLocation: vi.fn().mockReturnValue({pathname: "/placement"})
   };
 });
 
@@ -35,7 +36,7 @@ describe("/placement route", () => {
 
   it("changes rotate button to show Y axis when clicked", () => {
     const result = render(<PlacementPage />);
-    const rotateBtn = result.getByRole("button");
+    const rotateBtn = result.getByRole("button", {name: /rotate ship/i});
     expect(rotateBtn.textContent).toBe("Rotate ship - X");
     fireEvent.click(rotateBtn);
     expect(rotateBtn.textContent).toBe("Rotate ship - Y");
