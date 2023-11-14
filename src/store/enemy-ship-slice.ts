@@ -1,23 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { type ClassValue } from "clsx";
-
-interface currentShipType {
-  name: string;
-  shipColorClass: ClassValue;
-  cells: number;
-}
 
 interface shipDataType {
   name: string;
   shipColorClass: string;
   numOfCells: number;
   occupiedCells: number[][];
-  alreadyPlaced: boolean;
   alreadySunk: boolean;
 }
 
 export interface ShipState {
-  currentShip: currentShipType;
   shipData: {
     carrier: shipDataType;
     battleship: shipDataType;
@@ -29,23 +20,15 @@ export interface ShipState {
     row: number | null;
     col: number | null;
   };
-  nextShipsToBePlaced: {
-    name: string;
-    shipColorClass: string;
-    cells: number;
-  }[];
-  placementDirection: "row" | "column";
 }
 
 const initialState: ShipState = {
-  currentShip: { name: "Carrier", shipColorClass: "bg-amber-500", cells: 5 },
   shipData: {
     carrier: {
       name: "Carrier",
       shipColorClass: "bg-amber-500",
       numOfCells: 5,
       occupiedCells: [],
-      alreadyPlaced: false,
       alreadySunk: false,
     },
     battleship: {
@@ -54,7 +37,6 @@ const initialState: ShipState = {
       numOfCells: 4,
       occupiedCells: [],
       alreadySunk: false,
-      alreadyPlaced: false,
     },
     destroyer: {
       name: "Destroyer",
@@ -62,7 +44,6 @@ const initialState: ShipState = {
       numOfCells: 3,
       occupiedCells: [],
       alreadySunk: false,
-      alreadyPlaced: false,
     },
     submarine: {
       name: "Submarine",
@@ -70,7 +51,6 @@ const initialState: ShipState = {
       numOfCells: 3,
       occupiedCells: [],
       alreadySunk: false,
-      alreadyPlaced: false,
     },
     patroller: {
       name: "Patroller",
@@ -78,29 +58,18 @@ const initialState: ShipState = {
       numOfCells: 2,
       occupiedCells: [],
       alreadySunk: false,
-      alreadyPlaced: false,
     },
   },
   mouseOverCoords: {
     row: null,
     col: null,
   },
-  nextShipsToBePlaced: [
-    { name: "Battleship", shipColorClass: "bg-teal-500", cells: 4 },
-    { name: "Destroyer", shipColorClass: "bg-cyan-500", cells: 3 },
-    { name: "Submarine", shipColorClass: "bg-indigo-500", cells: 3 },
-    { name: "Patroller", shipColorClass: "bg-rose-500", cells: 2 },
-  ],
-  placementDirection: "row",
 };
 
 export const enemyShipSlice = createSlice({
   name: "EnemyShipState",
   initialState,
   reducers: {
-    setCurrentShipAction: (state, action: PayloadAction<any>) => {
-      state.currentShip = action.payload;
-    },
     setShipDataAction: (
       state,
       action: PayloadAction<ShipState["shipData"]>,
@@ -113,28 +82,11 @@ export const enemyShipSlice = createSlice({
     ) => {
       state.mouseOverCoords = action.payload;
     },
-    setNextShipsToBePlacedAction: (
-      state,
-      action: PayloadAction<ShipState["nextShipsToBePlaced"]>,
-    ) => {
-      state.nextShipsToBePlaced = action.payload;
-    },
-    setPlacementDirectionAction: (
-      state,
-      action: PayloadAction<ShipState["placementDirection"]>,
-    ) => {
-      state.placementDirection = action.payload;
-    },
   },
 });
 
-export const {
-  setCurrentShipAction,
-  setShipDataAction,
-  setMouseOverCoordsAction,
-  setNextShipsToBePlacedAction,
-  setPlacementDirectionAction,
-} = enemyShipSlice.actions;
+export const { setShipDataAction, setMouseOverCoordsAction } =
+  enemyShipSlice.actions;
 
 const enemyShipReducer = enemyShipSlice.reducer;
 
