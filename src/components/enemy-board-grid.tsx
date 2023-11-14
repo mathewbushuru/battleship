@@ -1,7 +1,9 @@
 import ShipBoardBadge from "@/components/ship-board-badge";
 import EnemyBoardRow from "./enemy-board-row";
-import { useAppSelector } from "@/store/store";
+import { useAppSelector, useAppDispatch } from "@/store/store";
+import { type ShipState, setShipDataAction } from "@/store/enemy-ship-slice";
 import { cn } from "@/lib/ui-utils";
+import { useEffect } from "react";
 
 interface enemyBoardGridProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -9,7 +11,77 @@ export default function EnemyBoardGrid({
   className,
   ...props
 }: enemyBoardGridProps) {
-  const enemyShipData = useAppSelector(state => state.enemyShip.shipData);
+  const dispatch = useAppDispatch();
+
+  const enemyShipData = useAppSelector((state) => state.enemyShip.shipData);
+
+  const setShipData: (updatedShipData: ShipState["shipData"]) => void = (
+    updatedShipData,
+  ) => {
+    dispatch(setShipDataAction(updatedShipData));
+  };
+
+  useEffect(() => {
+    if (!enemyShipData.carrier.alreadyPlaced) {
+      const updatedCarrierData = { ...enemyShipData.carrier };
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 6);
+      updatedCarrierData.occupiedCells = [
+        [row, col],
+        [row, col + 1],
+        [row, col + 2],
+        [row, col + 3],
+        [row, col + 4],
+      ];
+      updatedCarrierData.alreadyPlaced = true;
+      setShipData({ ...enemyShipData, carrier: updatedCarrierData });
+    } else if (!enemyShipData.battleship.alreadyPlaced) {
+      const updatedBattleshipData = { ...enemyShipData.battleship };
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 7);
+      updatedBattleshipData.occupiedCells = [
+        [row, col],
+        [row, col + 1],
+        [row, col + 2],
+        [row, col + 3],
+      ];
+      updatedBattleshipData.alreadyPlaced = true;
+      setShipData({ ...enemyShipData, battleship: updatedBattleshipData });
+    } else if (!enemyShipData.destroyer.alreadyPlaced) {
+      const updatedDestroyerData = { ...enemyShipData.destroyer };
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 7);
+      updatedDestroyerData.occupiedCells = [
+        [row, col],
+        [row, col + 1],
+        [row, col + 2],
+        [row, col + 3],
+      ];
+      updatedDestroyerData.alreadyPlaced = true;
+      setShipData({ ...enemyShipData, destroyer: updatedDestroyerData });
+    } else if (!enemyShipData.submarine.alreadyPlaced) {
+      const updatedSubmarineData = { ...enemyShipData.submarine };
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 8);
+      updatedSubmarineData.occupiedCells = [
+        [row, col],
+        [row, col + 1],
+        [row, col + 2],
+      ];
+      updatedSubmarineData.alreadyPlaced = true;
+      setShipData({ ...enemyShipData, submarine: updatedSubmarineData });
+    } else if (!enemyShipData.patroller.alreadyPlaced) {
+      const updatedPatrollerData = { ...enemyShipData.patroller };
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 9);
+      updatedPatrollerData.occupiedCells = [
+        [row, col],
+        [row, col + 1],
+      ];
+      updatedPatrollerData.alreadyPlaced = true;
+      setShipData({ ...enemyShipData, patroller: updatedPatrollerData });
+    }
+  }, [enemyShipData])
 
   return (
     <div

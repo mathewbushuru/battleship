@@ -14,14 +14,6 @@ export default function EnemyBoardRow({ row }: { row: number }) {
       {Array(10)
         .fill(null)
         .map((_, col) => {
-          const allCoveredCells =
-            placementDirection === "row"
-              ? row === mouseOverCoords.row &&
-                col >= mouseOverCoords.col! &&
-                col < mouseOverCoords.col! + currentShip.cells
-              : col === mouseOverCoords.col &&
-                row >= mouseOverCoords.row! &&
-                row < mouseOverCoords.row! + currentShip.cells;
           return (
             <EnemyBoardCell
               key={col}
@@ -30,7 +22,8 @@ export default function EnemyBoardRow({ row }: { row: number }) {
               isMouseOver={
                 mouseOverCoords.col !== null &&
                 mouseOverCoords.row !== null &&
-                allCoveredCells
+                mouseOverCoords.row === row &&
+                mouseOverCoords.col === col
               }
               isValidPlacement={
                 mouseOverCoords.col !== null &&
