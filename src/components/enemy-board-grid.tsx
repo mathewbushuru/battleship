@@ -26,7 +26,9 @@ export default function EnemyBoardGrid({
     const updatedShipData = JSON.parse(
       JSON.stringify(enemyShipData),
     ) as ShipState["shipData"];
-    let row, col;
+
+    const allEnemyCells: number[][] = [];
+    let row: number, col: number;
 
     row = Math.floor(Math.random() * 10);
     col = Math.floor(Math.random() * 6);
@@ -37,42 +39,94 @@ export default function EnemyBoardGrid({
       [row, col + 3],
       [row, col + 4],
     ];
+    allEnemyCells.push(...enemyCarrierCells);
     updatedShipData.carrier.occupiedCells = enemyCarrierCells;
     updatedShipData.carrier.alreadyPlaced = true;
 
     row = Math.floor(Math.random() * 10);
     col = Math.floor(Math.random() * 7);
+    while (
+      allEnemyCells.some((el) => {
+        return (
+          (el[0] === row && el[1] === col) ||
+          (el[0] === row && el[1] === col + 1) ||
+          (el[0] === row && el[1] === col + 2) ||
+          (el[0] === row && el[1] === col + 3)
+        );
+      })
+    ) {
+      row = Math.floor(Math.random() * 10);
+      col = Math.floor(Math.random() * 7);
+    }
     const enemyBattleshipCells = [
       [row, col],
       [row, col + 1],
       [row, col + 2],
       [row, col + 3],
     ];
+    allEnemyCells.push(...enemyBattleshipCells);
     updatedShipData.battleship.occupiedCells = enemyBattleshipCells;
     updatedShipData.battleship.alreadyPlaced = true;
 
     row = Math.floor(Math.random() * 10);
     col = Math.floor(Math.random() * 8);
+    while (
+      allEnemyCells.some((el) => {
+        return (
+          (el[0] === row && el[1] === col) ||
+          (el[0] === row && el[1] === col + 1) ||
+          (el[0] === row && el[1] === col + 2)
+        );
+      })
+    ) {
+      row = Math.floor(Math.random() * 10);
+      col = Math.floor(Math.random() * 7);
+    }
     const enemyDestroyerCells = [
       [row, col],
       [row, col + 1],
       [row, col + 2],
     ];
+    allEnemyCells.push(...enemyDestroyerCells);
     updatedShipData.destroyer.occupiedCells = enemyDestroyerCells;
     updatedShipData.destroyer.alreadyPlaced = true;
 
     row = Math.floor(Math.random() * 10);
     col = Math.floor(Math.random() * 8);
+    while (
+      allEnemyCells.some((el) => {
+        return (
+          (el[0] === row && el[1] === col) ||
+          (el[0] === row && el[1] === col + 1) ||
+          (el[0] === row && el[1] === col + 2)
+        );
+      })
+    ) {
+      row = Math.floor(Math.random() * 10);
+      col = Math.floor(Math.random() * 7);
+    }
     const enemySubmarineCells = [
       [row, col],
       [row, col + 1],
       [row, col + 2],
     ];
+    allEnemyCells.push(...enemySubmarineCells);
     updatedShipData.submarine.occupiedCells = enemySubmarineCells;
     updatedShipData.submarine.alreadyPlaced = true;
 
     row = Math.floor(Math.random() * 10);
     col = Math.floor(Math.random() * 9);
+    while (
+      allEnemyCells.some((el) => {
+        return (
+          (el[0] === row && el[1] === col) ||
+          (el[0] === row && el[1] === col + 1)
+        );
+      })
+    ) {
+      row = Math.floor(Math.random() * 10);
+      col = Math.floor(Math.random() * 7);
+    }
     const enemyPatrollerCells = [
       [row, col],
       [row, col + 1],
