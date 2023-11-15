@@ -25,9 +25,9 @@ function PlacementPage() {
     (state) => state.ship.placementDirection,
   );
 
-  const setPlacementDirection: (
+  const setPlacementDirection = (
     newDirection: ShipState["placementDirection"],
-  ) => void = (newDirection) => {
+  ) => {
     dispatch(setPlacementDirectionAction(newDirection));
   };
 

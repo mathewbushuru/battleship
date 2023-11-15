@@ -1,9 +1,8 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { type ClassValue } from "clsx";
 
 interface currentShipType {
   name: string;
-  shipColorClass: ClassValue;
+  shipColorClass: string;
   cells: number;
 }
 
@@ -125,6 +124,11 @@ export const shipSlice = createSlice({
     ) => {
       state.placementDirection = action.payload;
     },
+    clearShipsPlacementAction: (state) => {
+      state.currentShip = initialState.currentShip;
+      state.shipData = initialState.shipData;
+      state.nextShipsToBePlaced = initialState.nextShipsToBePlaced;
+    },
   },
 });
 
@@ -134,6 +138,7 @@ export const {
   setMouseOverCoordsAction,
   setNextShipsToBePlacedAction,
   setPlacementDirectionAction,
+  clearShipsPlacementAction,
 } = shipSlice.actions;
 
 const shipSliceReducer = shipSlice.reducer;

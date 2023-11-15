@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Shuffle } from "lucide-react";
+import { Shuffle, ListRestart } from "lucide-react";
 
 import BoardRow from "@/components/board-row";
 import ShipBoardBadge from "@/components/ship-board-badge";
@@ -9,6 +9,7 @@ import {
   setShipDataAction,
   setCurrentShipAction,
   setNextShipsToBePlacedAction,
+  clearShipsPlacementAction,
   type ShipState,
 } from "@/store/ship-slice";
 import { placeShipsAutomatically } from "@/lib/game-utils";
@@ -59,6 +60,10 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
     setNextShipsToBePlaced([]);
   };
 
+  const handleClearPlacement = () => {
+    dispatch(clearShipsPlacementAction());
+  }
+
   return (
     <div
       data-testid="BoardGridComponent"
@@ -69,14 +74,24 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
       {...props}
     >
       {location.pathname === "/placement" && (
-        <Button
-          size="xs"
-          className="self-center font-normal sm:hidden"
-          onClick={handleRandomizeShips}
-        >
-          Randomise
-          <Shuffle className="ml-1 h-3 w-3" />
-        </Button>
+        <div className="space-x-2 self-center sm:hidden">
+          <Button
+            size="xs"
+            className="h-6 text-[0.5rem] font-normal "
+            onClick={handleRandomizeShips}
+          >
+            Randomize
+            <Shuffle className="ml-1 h-2 w-2" />
+          </Button>
+          <Button
+            size="xs"
+            className="h-6 text-[0.5rem] font-normal"
+            onClick={handleClearPlacement}
+          >
+            Clear
+            <ListRestart className="ml-1 h-2 w-2" />
+          </Button>
+        </div>
       )}
       <div className="flex flex-wrap justify-center gap-2 px-2 sm:flex-col sm:py-4">
         <ShipBoardBadge
@@ -115,11 +130,19 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
             <div className="hidden flex-1 sm:flex" />
             <Button
               size="xs"
-              className="hidden gap-1 self-center font-normal uppercase sm:flex"
+              className="hidden gap-1 font-normal uppercase sm:flex"
               onClick={handleRandomizeShips}
             >
               Randomize
               <Shuffle className="h-3 w-3" />
+            </Button>
+            <Button
+              size="xs"
+              className="hidden gap-1 font-normal uppercase sm:flex"
+              onClick={handleClearPlacement}
+            >
+              Clear
+              <ListRestart className="h-3 w-3" />
             </Button>
           </>
         )}
