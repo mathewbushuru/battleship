@@ -7,11 +7,13 @@ import {
 
 import shipReducer from "@/store/ship-slice";
 import enemyShipReducer from "@/store/enemy-ship-slice";
+import gameplayReducer from "./gameplay-slice";
 
 export const store = configureStore({
   reducer: {
     ship: shipReducer,
-    enemyShip: enemyShipReducer
+    enemyShip: enemyShipReducer,
+    gameplay: gameplayReducer
   },
 });
 

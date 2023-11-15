@@ -16,6 +16,7 @@ export default function EnemyBoardGrid({
   const dispatch = useAppDispatch();
 
   const enemyShipData = useAppSelector((state) => state.enemyShip.shipData);
+  const turn = useAppSelector(state => state.gameplay.turn)
 
   const setShipData: (updatedShipData: ShipState["shipData"]) => void = (
     updatedShipData,
@@ -50,6 +51,7 @@ export default function EnemyBoardGrid({
       data-testid="EnemyBoardGridComponent"
       className={cn(
         "mx-auto flex w-fit flex-col-reverse gap-2 rounded-md bg-secondary px-1 py-4 sm:flex-row sm:px-2 sm:py-2",
+        turn === "enemy" && "opacity-75 cursor-not-allowed",
         className,
       )}
       {...props}

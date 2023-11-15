@@ -7,6 +7,7 @@ import {
   setShipDataAction,
   addMissedHitCellAction,
 } from "@/store/enemy-ship-slice";
+import { toggleTurnAction } from "@/store/gameplay-slice";
 import { cn } from "@/lib/ui-utils";
 
 export default function EnemyBoardCell({
@@ -24,6 +25,7 @@ export default function EnemyBoardCell({
   const missedHitCells = useAppSelector(
     (state) => state.enemyShip.missedHitCells,
   );
+  const turn = useAppSelector(state => state.gameplay.turn);
 
   const setMouseOverCoords = (newCoords: ShipState["mouseOverCoords"]) => {
     dispatch(setMouseOverCoordsAction(newCoords));
@@ -110,6 +112,11 @@ export default function EnemyBoardCell({
     (isPatrollerCell && shipData.patroller.alreadySunk);
 
   const handleShotFired = () => {
+    if (turn === "enemy") {
+      return;
+    }
+
+    dispatch(toggleTurnAction());
     if (
       !(
         isCarrierCell ||
@@ -173,7 +180,8 @@ export default function EnemyBoardCell({
           shipIsAlreadySunk &&
           shipData.patroller.shipColorClass,
         isMouseOver && isHitCell && "cursor-not-allowed",
-        isMouseOver && !isHitCell && "bg-emerald-500",
+        turn === "enemy" && "cursor-not-allowed",
+        isMouseOver && !isHitCell && turn === "player" && "bg-emerald-500",
       )}
       onMouseEnter={() => setMouseOverCoords({ row, col })}
       onMouseLeave={() => setMouseOverCoords({ row: null, col: null })}

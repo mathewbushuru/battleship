@@ -21,6 +21,7 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const shipData = useAppSelector((state) => state.ship.shipData);
+  const turn = useAppSelector((state) => state.gameplay.turn);
 
   const setShipData = (updatedShipData: ShipState["shipData"]) => {
     dispatch(setShipDataAction(updatedShipData));
@@ -62,13 +63,16 @@ export default function BoardGrid({ className, ...props }: boardGridProps) {
 
   const handleClearPlacement = () => {
     dispatch(clearShipsPlacementAction());
-  }
+  };
 
   return (
     <div
       data-testid="BoardGridComponent"
       className={cn(
         "mx-auto flex w-fit flex-col-reverse gap-2 rounded-md bg-secondary px-1 py-4 sm:flex-row sm:px-2 sm:py-2",
+        turn === "player" &&
+          location.pathname === "/gameplay" &&
+          "cursor-not-allowed opacity-75",
         className,
       )}
       {...props}

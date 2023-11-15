@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { type RootState, type AppStore } from "@/store/store";
 import shipReducer from "@/store/ship-slice";
 import enemyShipReducer from "@/store/enemy-ship-slice";
+import gameplayReducer from "@/store/gameplay-slice";
 
 // type interface that extends default options of Render from RTL
 // and allow others ie initialState, store
@@ -22,7 +23,11 @@ export function render(
   {
     // automatically create store instance if no store was passed in
     store = configureStore({
-      reducer: { ship: shipReducer, enemyShip: enemyShipReducer },
+      reducer: {
+        ship: shipReducer,
+        enemyShip: enemyShipReducer,
+        gameplay: gameplayReducer,
+      },
     }),
     ...renderOptions
   }: ExtendedRenderOptions = {},
