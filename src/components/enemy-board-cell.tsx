@@ -1,9 +1,12 @@
-import { Ship } from "lucide-react";
+import { Ship, CircleDashed } from "lucide-react";
+// CircleDotDashed
 
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
   type ShipState,
   setMouseOverCoordsAction,
+  setShipDataAction,
+  addMissedHitCellAction,
 } from "@/store/enemy-ship-slice";
 import { cn } from "@/lib/ui-utils";
 
@@ -19,11 +22,15 @@ export default function EnemyBoardCell({
   const dispatch = useAppDispatch();
 
   const shipData = useAppSelector((state) => state.enemyShip.shipData);
+  const missedHitCells = useAppSelector(
+    (state) => state.enemyShip.missedHitCells,
+  );
 
-  const setMouseOverCoords: (
-    newCoords: ShipState["mouseOverCoords"],
-  ) => void = (newCoords) => {
+  const setMouseOverCoords = (newCoords: ShipState["mouseOverCoords"]) => {
     dispatch(setMouseOverCoordsAction(newCoords));
+  };
+  const setShipData = (updatedShipData: ShipState["shipData"]) => {
+    dispatch(setShipDataAction(updatedShipData));
   };
 
   const isCarrierCell = shipData.carrier.occupiedCells.some(
@@ -42,6 +49,10 @@ export default function EnemyBoardCell({
     (el) => el[0] === row && el[1] === col,
   );
 
+  const isMissedHitCell = missedHitCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+
   let cellContent: React.ReactNode = "";
 
   if (
@@ -52,10 +63,25 @@ export default function EnemyBoardCell({
     isPatrollerCell
   ) {
     cellContent = <Ship className="h-4 w-4 sm:h-5 sm:w-5" />;
+  } else if (isMissedHitCell) {
+    cellContent = (
+      <CircleDashed className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
+    );
   }
 
-  const handleClick = () => {
-    return;
+  const handleShotFired = () => {
+    if (
+      !(
+        isCarrierCell ||
+        isBattleshipCell ||
+        isDestroyerCell ||
+        isSubmarineCell ||
+        isPatrollerCell
+      )
+    ) {
+      // misfired shot
+      dispatch(addMissedHitCellAction([row, col]));
+    }
   };
 
   return (
@@ -67,11 +93,13 @@ export default function EnemyBoardCell({
         isDestroyerCell && shipData.destroyer.shipColorClass,
         isSubmarineCell && shipData.submarine.shipColorClass,
         isPatrollerCell && shipData.patroller.shipColorClass,
-        isMouseOver && "bg-red-800",
+        isMouseOver && isMissedHitCell && "cursor-not-allowed",
+        isMouseOver && isMissedHitCell && "bg-red-500",
+        isMouseOver && !isMissedHitCell && "bg-emerald-600",
       )}
       onMouseEnter={() => setMouseOverCoords({ row, col })}
       onMouseLeave={() => setMouseOverCoords({ row: null, col: null })}
-      onClick={handleClick}
+      onClick={handleShotFired}
       data-testid={`EnemyRow${row}Col${col}Cell`}
     >
       {cellContent}

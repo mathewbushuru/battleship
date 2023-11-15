@@ -5,6 +5,7 @@ interface shipDataType {
   shipColorClass: string;
   numOfCells: number;
   occupiedCells: number[][];
+  hitCells: number[][];
   alreadySunk: boolean;
 }
 
@@ -20,6 +21,7 @@ export interface ShipState {
     row: number | null;
     col: number | null;
   };
+  missedHitCells: number[][];
 }
 
 const initialState: ShipState = {
@@ -29,6 +31,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-amber-500",
       numOfCells: 5,
       occupiedCells: [],
+      hitCells: [],
       alreadySunk: false,
     },
     battleship: {
@@ -36,6 +39,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-teal-500",
       numOfCells: 4,
       occupiedCells: [],
+      hitCells: [],
       alreadySunk: false,
     },
     destroyer: {
@@ -43,6 +47,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-cyan-500",
       numOfCells: 3,
       occupiedCells: [],
+      hitCells: [],
       alreadySunk: false,
     },
     submarine: {
@@ -50,6 +55,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-indigo-500",
       numOfCells: 3,
       occupiedCells: [],
+      hitCells: [],
       alreadySunk: false,
     },
     patroller: {
@@ -57,6 +63,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-rose-500",
       numOfCells: 2,
       occupiedCells: [],
+      hitCells: [],
       alreadySunk: false,
     },
   },
@@ -64,6 +71,7 @@ const initialState: ShipState = {
     row: null,
     col: null,
   },
+  missedHitCells: [],
 };
 
 export const enemyShipSlice = createSlice({
@@ -82,11 +90,17 @@ export const enemyShipSlice = createSlice({
     ) => {
       state.mouseOverCoords = action.payload;
     },
+    addMissedHitCellAction: (state, action: PayloadAction<number[]>) => {
+      state.missedHitCells.push(action.payload);
+    },
   },
 });
 
-export const { setShipDataAction, setMouseOverCoordsAction } =
-  enemyShipSlice.actions;
+export const {
+  setShipDataAction,
+  setMouseOverCoordsAction,
+  addMissedHitCellAction,
+} = enemyShipSlice.actions;
 
 const enemyShipReducer = enemyShipSlice.reducer;
 
