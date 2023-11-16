@@ -1,8 +1,18 @@
-export const getRandomInt = (unincludedMax: number) => {
-  return Math.floor(Math.random() * unincludedMax);
-};
+export function computerPlaysArray() {
+  const arr = [];
+  for (let row = 0; row < 10; row++) {
+    for (let col = 0; col < 10; col++) {
+      arr.push([row, col]);
+    }
+  }
+  return shuffleArray<number[]>(arr);
+}
 
-export const placeShipsAutomatically = () => {
+export function getRandomInt(unincludedMax: number) {
+  return Math.floor(Math.random() * unincludedMax);
+}
+
+export function placeShipsAutomatically() {
   let row: number, col: number, direction: "row" | "column";
   const invalidCells: number[][] = [];
 
@@ -224,4 +234,21 @@ export const placeShipsAutomatically = () => {
   };
 
   return allPlacedCells;
-};
+}
+
+export function shuffleArray<T>(array: T[]) {
+  let currentIndex = array.length;
+  let randomIndex;
+
+  while (currentIndex > 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+}

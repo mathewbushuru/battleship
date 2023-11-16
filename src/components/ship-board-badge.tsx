@@ -18,15 +18,16 @@ export default function ShipBoardBadge({
     <div
       className={cn(
         "flex items-center gap-1 rounded-sm px-1 py-1 text-xs text-gray-200",
+        alreadySunk && "line-through",
         className,
       )}
       {...props}
     >
       <p>{shipName}</p>
-      {alreadyPlaced ? (
-        <CheckCheck className="h-3 w-3" />
-      ) : alreadySunk ? (
+      {alreadySunk ? (
         <X className="h-3 w-3" />
+      ) : alreadyPlaced ? (
+        <CheckCheck className="h-3 w-3" />
       ) : (
         <div className="w-3" />
       )}

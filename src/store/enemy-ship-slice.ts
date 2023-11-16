@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { computerPlaysArray } from "@/lib/game-utils";
 
 interface shipDataType {
   name: string;
@@ -22,6 +23,7 @@ export interface ShipState {
     col: number | null;
   };
   missedHitCells: number[][];
+  computerCellsNextToHit: number[][];
 }
 
 const initialState: ShipState = {
@@ -72,6 +74,7 @@ const initialState: ShipState = {
     col: null,
   },
   missedHitCells: [],
+  computerCellsNextToHit: computerPlaysArray(),
 };
 
 export const enemyShipSlice = createSlice({
@@ -93,6 +96,9 @@ export const enemyShipSlice = createSlice({
     addMissedHitCellAction: (state, action: PayloadAction<number[]>) => {
       state.missedHitCells.push(action.payload);
     },
+    updateComputerPlaysAction: (state, action: PayloadAction<ShipState['computerCellsNextToHit']>) => {
+      state.computerCellsNextToHit = action.payload;
+    }
   },
 });
 
@@ -100,6 +106,7 @@ export const {
   setShipDataAction,
   setMouseOverCoordsAction,
   addMissedHitCellAction,
+  updateComputerPlaysAction
 } = enemyShipSlice.actions;
 
 const enemyShipReducer = enemyShipSlice.reducer;

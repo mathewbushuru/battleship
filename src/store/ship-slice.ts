@@ -11,6 +11,7 @@ interface shipDataType {
   shipColorClass: string;
   numOfCells: number;
   occupiedCells: number[][];
+  hitCells: number[][];
   alreadyPlaced: boolean;
   alreadySunk: boolean;
 }
@@ -34,6 +35,7 @@ export interface ShipState {
     cells: number;
   }[];
   placementDirection: "row" | "column";
+  missedComputerHitCells: number[][];
 }
 
 const initialState: ShipState = {
@@ -44,6 +46,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-amber-500",
       numOfCells: 5,
       occupiedCells: [],
+      hitCells: [],
       alreadyPlaced: false,
       alreadySunk: false,
     },
@@ -52,6 +55,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-teal-500",
       numOfCells: 4,
       occupiedCells: [],
+      hitCells: [],
       alreadyPlaced: false,
       alreadySunk: false,
     },
@@ -60,6 +64,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-cyan-500",
       numOfCells: 3,
       occupiedCells: [],
+      hitCells: [],
       alreadyPlaced: false,
       alreadySunk: false,
     },
@@ -68,6 +73,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-indigo-500",
       numOfCells: 3,
       occupiedCells: [],
+      hitCells: [],
       alreadyPlaced: false,
       alreadySunk: false,
     },
@@ -76,6 +82,7 @@ const initialState: ShipState = {
       shipColorClass: "bg-rose-500",
       numOfCells: 2,
       occupiedCells: [],
+      hitCells: [],
       alreadyPlaced: false,
       alreadySunk: false,
     },
@@ -91,6 +98,7 @@ const initialState: ShipState = {
     { name: "Patroller", shipColorClass: "bg-rose-500", cells: 2 },
   ],
   placementDirection: "row",
+  missedComputerHitCells: [],
 };
 
 export const shipSlice = createSlice({
@@ -129,6 +137,12 @@ export const shipSlice = createSlice({
       state.shipData = initialState.shipData;
       state.nextShipsToBePlaced = initialState.nextShipsToBePlaced;
     },
+    addMissedComputerHitCellAction: (
+      state,
+      action: PayloadAction<number[]>,
+    ) => {
+      state.missedComputerHitCells.push(action.payload);
+    },
   },
 });
 
@@ -139,6 +153,7 @@ export const {
   setNextShipsToBePlacedAction,
   setPlacementDirectionAction,
   clearShipsPlacementAction,
+  addMissedComputerHitCellAction,
 } = shipSlice.actions;
 
 const shipSliceReducer = shipSlice.reducer;

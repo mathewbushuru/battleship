@@ -1,4 +1,4 @@
-import { Ship } from "lucide-react";
+import { Ship, CircleDashed, CircleDotDashed } from "lucide-react";
 
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
@@ -30,6 +30,9 @@ export default function BoardCell({
   );
   const placementDirection = useAppSelector(
     (state) => state.ship.placementDirection,
+  );
+  const missedHitCells = useAppSelector(
+    (state) => state.ship.missedComputerHitCells,
   );
 
   const setCurrentShip = (nextShip: ShipState["currentShip"]) => {
@@ -111,6 +114,29 @@ export default function BoardCell({
     isValidPlacement = false;
   }
 
+  const isHitCarrierCell = shipData.carrier.hitCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+  const isHitBattleshipCell = shipData.battleship.hitCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+  const isHitDestroyerCell = shipData.destroyer.hitCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+  const isHitSubmarineCell = shipData.submarine.hitCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+  const isHitPatrollerCell = shipData.patroller.hitCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+
+  // const isSuccessfullyHit =
+  //   isHitCarrierCell ||
+  //   isHitBattleshipCell ||
+  //   isHitDestroyerCell ||
+  //   isHitSubmarineCell ||
+  //   isHitPatrollerCell;
+
   const isCarrierCell = shipData.carrier.occupiedCells.some(
     (el) => el[0] === row && el[1] === col,
   );
@@ -127,9 +153,24 @@ export default function BoardCell({
     (el) => el[0] === row && el[1] === col,
   );
 
+  const isMissedHitCell = missedHitCells.some(
+    (el) => el[0] === row && el[1] === col,
+  );
+  // const isHitCell = isSuccessfullyHit || isMissedHitCell;
+
   let cellContent: React.ReactNode = "";
 
   if (
+    isHitCarrierCell ||
+    isHitBattleshipCell ||
+    isHitDestroyerCell ||
+    isHitSubmarineCell ||
+    isHitPatrollerCell
+  ) {
+    cellContent = (
+      <CircleDotDashed className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
+    );
+  } else if (
     isCarrierCell ||
     isBattleshipCell ||
     isDestroyerCell ||
@@ -138,6 +179,10 @@ export default function BoardCell({
   ) {
     isValidPlacement = false;
     cellContent = <Ship className="h-4 w-4 sm:h-5 sm:w-5" />;
+  } else if (isMissedHitCell) {
+    cellContent = (
+      <CircleDashed className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
+    );
   }
 
   const isPlacementComplete =
