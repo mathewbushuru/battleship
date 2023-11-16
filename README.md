@@ -12,7 +12,24 @@ In addition, I am using `Redux` for React state management and `TailwindCSS` for
 
 ![test-coverage](./docs/coverage4.jpg)
 <p align="center">
-<img src="./docs//coverage-cmd4.jpg" width="450px" />
+<img src="./docs/coverage-cmd4.jpg" width="450px" />
+</p>
+
+### Progress
+
+**Mobile responsive**
+<p align="center">
+<img src="./docs/mobile.jpg" width="700px" />
+</p>
+
+**Placement page**
+<p align="center">
+<img src="./docs/placement.jpg" width="700px" />
+</p>
+
+**Gameplay page**
+<p align="center">
+<img src="./docs/gameplay.jpg" width="700px" />
 </p>
 
 ### Roadmap
@@ -24,5 +41,5 @@ In addition, I am using `Redux` for React state management and `TailwindCSS` for
 - [x] Gameplay page and gameplay loop
 - [x] Smarter computer player 
 - [ ] Comprehensive gameplay page tests
-<!-- - [ ] Drag and drop for ships during placement -->
 - [ ] Enable two players online gameplay with Socket.io
+<!-- - [ ] Drag and drop for ships during placement -->
