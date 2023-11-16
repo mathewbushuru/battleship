@@ -21,7 +21,8 @@ In addition, I am using `Redux` for React state management and `TailwindCSS` for
 - [x] TDD setup and Vitest testing config
 - [x] Start page
 - [x] Ship placement page
-- [ ] Gameplay page and gameplay loop
-- [ ] Drag and drop for ships during placement
-- [ ] Smarter computer player 
-- [ ] Enable two players  online gameplay with Socket.io
+- [x] Gameplay page and gameplay loop
+- [x] Smarter computer player 
+- [ ] Comprehensive gameplay page tests
+<!-- - [ ] Drag and drop for ships during placement -->
+- [ ] Enable two players online gameplay with Socket.io

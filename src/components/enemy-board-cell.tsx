@@ -1,4 +1,4 @@
-import { Ship, CircleDashed, CircleDotDashed } from "lucide-react";
+import { CircleDashed, CircleDotDashed } from "lucide-react";
 
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
@@ -15,6 +15,7 @@ import {
 } from "@/store/ship-slice";
 import { toggleTurnAction } from "@/store/gameplay-slice";
 import { cn } from "@/lib/ui-utils";
+import { shuffleArray } from "@/lib/game-utils";
 
 export default function EnemyBoardCell({
   row,
@@ -105,14 +106,6 @@ export default function EnemyBoardCell({
     cellContent = (
       <CircleDotDashed className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
     );
-  } else if (
-    isCarrierCell ||
-    isBattleshipCell ||
-    isDestroyerCell ||
-    isSubmarineCell ||
-    isPatrollerCell
-  ) {
-    cellContent = <Ship className="h-4 w-4 sm:h-5 sm:w-5" />;
   } else if (isMissedHitCell) {
     cellContent = (
       <CircleDashed className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
@@ -128,10 +121,9 @@ export default function EnemyBoardCell({
 
   const computerPlayTurn = () => {
     dispatch(toggleTurnAction());
-    const updatedPlaysArr = [...computerCellsNextToHit];
+    let updatedPlaysArr = [...computerCellsNextToHit];
     const nextHitCell = updatedPlaysArr.pop();
 
-    console.log(nextHitCell);
     if (nextHitCell === undefined) {
       return;
     }
@@ -153,38 +145,105 @@ export default function EnemyBoardCell({
     let isPlayerPatrollerHit = playerShipData.submarine.occupiedCells.some(
       (el) => el[0] === nextHitCell[0] && el[1] === nextHitCell[1],
     );
+    let isSinkingHit = false;
     if (isPlayerCarrierHit) {
       updatedPlayerShipData.carrier.hitCells.push(nextHitCell);
       updatedPlayerShipData.carrier.alreadySunk =
         updatedPlayerShipData.carrier.numOfCells ===
         updatedPlayerShipData.carrier.hitCells.length;
+      if (updatedPlayerShipData.carrier.alreadySunk) {
+        isSinkingHit = true;
+      }
       setFriendlyShipData(updatedPlayerShipData);
     } else if (isPlayerBattleshipHit) {
       updatedPlayerShipData.battleship.hitCells.push(nextHitCell);
       updatedPlayerShipData.battleship.alreadySunk =
         updatedPlayerShipData.battleship.numOfCells ===
         updatedPlayerShipData.battleship.hitCells.length;
+      if (updatedPlayerShipData.battleship.alreadySunk) {
+        isSinkingHit = true;
+      }
       setFriendlyShipData(updatedPlayerShipData);
     } else if (isPlayerDestroyerHit) {
       updatedPlayerShipData.destroyer.hitCells.push(nextHitCell);
       updatedPlayerShipData.destroyer.alreadySunk =
         updatedPlayerShipData.destroyer.numOfCells ===
         updatedPlayerShipData.destroyer.hitCells.length;
+      if (updatedPlayerShipData.destroyer.alreadySunk) {
+        isSinkingHit = true;
+      }
       setFriendlyShipData(updatedPlayerShipData);
     } else if (isPlayerSubmarineHit) {
       updatedPlayerShipData.submarine.hitCells.push(nextHitCell);
       updatedPlayerShipData.submarine.alreadySunk =
         updatedPlayerShipData.submarine.numOfCells ===
         updatedPlayerShipData.submarine.hitCells.length;
+      if (updatedPlayerShipData.submarine.alreadySunk) {
+        isSinkingHit = true;
+      }
       setFriendlyShipData(updatedPlayerShipData);
     } else if (isPlayerPatrollerHit) {
       updatedPlayerShipData.patroller.hitCells.push(nextHitCell);
       updatedPlayerShipData.patroller.alreadySunk =
         updatedPlayerShipData.patroller.numOfCells ===
         updatedPlayerShipData.patroller.hitCells.length;
+      if (updatedPlayerShipData.patroller.alreadySunk) {
+        isSinkingHit = true;
+      }
       setFriendlyShipData(updatedPlayerShipData);
     } else {
       dispatch(addMissedComputerHitCellAction(nextHitCell));
+    }
+
+    // smarter computer player
+    const isSuccessfullyHit =
+      isPlayerCarrierHit ||
+      isPlayerBattleshipHit ||
+      isPlayerDestroyerHit ||
+      isPlayerSubmarineHit ||
+      isPlayerPatrollerHit;
+    if (isSuccessfullyHit) {
+      const nextHitAttempts = [];
+
+      let i = 1;
+      // attempt next in row
+      let nextRowItemIndex = updatedPlaysArr.findIndex(
+        (el) => el[0] === nextHitCell[0] + i && el[1] === nextHitCell[1],
+      );
+      if (nextRowItemIndex !== -1) {
+        updatedPlaysArr.splice(nextRowItemIndex, 1);
+        nextHitAttempts.push([nextHitCell[0] + i, nextHitCell[1]]);
+      }
+      // attempt previous in row
+      let prevRowItemIndex = updatedPlaysArr.findIndex(
+        (el) => el[0] === nextHitCell[0] - i && el[1] === nextHitCell[1],
+      );
+      if (prevRowItemIndex !== -1) {
+        updatedPlaysArr.splice(prevRowItemIndex, 1);
+        nextHitAttempts.push([nextHitCell[0] - i, nextHitCell[1]]);
+      }
+      // attempt next in col
+      let nextColItemIndex = updatedPlaysArr.findIndex(
+        (el) => el[0] === nextHitCell[0] && el[1] === nextHitCell[1] + i,
+      );
+      if (nextColItemIndex !== -1) {
+        updatedPlaysArr.splice(nextColItemIndex, 1);
+        nextHitAttempts.push([nextHitCell[0], nextHitCell[1] + i]);
+      }
+      // attempt prev in col
+      let prevColItemIndex = updatedPlaysArr.findIndex(
+        (el) => el[0] === nextHitCell[0] && el[1] === nextHitCell[1] - i,
+      );
+      if (prevColItemIndex !== -1) {
+        updatedPlaysArr.splice(prevColItemIndex, 1);
+        nextHitAttempts.push([nextHitCell[0], nextHitCell[1] - i]);
+      }
+
+      updatedPlaysArr.push(...nextHitAttempts);
+
+      if (isSinkingHit) {
+        updatedPlaysArr = shuffleArray(updatedPlaysArr);
+      }
     }
 
     setTimeout(() => {
